@@ -1,0 +1,26 @@
+﻿@model QuanLyNoiTruSV.Models.KhuNoiTru
+@{
+    ViewData["Title"] = "Xóa khu nội trú";
+}
+
+<div class="card theme-card border-danger">
+    <div class="theme-header bg-danger text-white">
+        Xác nhận xóa khu nội trú
+    </div>
+
+    <div class="card-body">
+        <p>Bạn có chắc muốn xóa khu sau?</p>
+
+        <ul class="list-group mb-3">
+            <li class="list-group-item"><strong>Tên khu:</strong> @Model.TenKhu</li>
+            <li class="list-group-item"><strong>Địa chỉ:</strong> @Model.DiaChi</li>
+            <li class="list-group-item"><strong>Mô tả:</strong> @Model.MoTa</li>
+        </ul>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-danger">Xóa</button>
+            <a asp-action="Index" class="btn theme-btn-warning">Hủy</a>
+        </form>
+    </div>
+</div>

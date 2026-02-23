@@ -1,0 +1,46 @@
+﻿@model IEnumerable<QuanLyNoiTruSV.Models.KhuNoiTru>
+@{
+    ViewData["Title"] = "Danh sách khu nội trú";
+}
+
+<div class="card theme-card">
+    <div class="theme-header">
+        🏫 Danh sách Khu Nội Trú
+        <div style="font-size:14px; font-weight:normal;">
+            Quản lý khu nội trú sinh viên
+        </div>
+    </div>
+
+    <div class="card-body">
+
+        <div class="mb-3 d-flex justify-content-between">
+            <div>
+                <a asp-action="Create" class="btn theme-btn-primary">➕ Thêm khu</a>
+                <a asp-action="Print" class="btn theme-btn-warning">🖨️ In danh sách</a>
+            </div>
+        </div>
+
+        <table class="table table-bordered table-hover">
+            <thead style="background-color:#ffe082;">
+                <tr>
+                    <th>Tên khu</th>
+                    <th width="220">Chức năng</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="fw-bold text-danger">@item.TenKhu</td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">👁 Chi tiết</a>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">✏ Sửa</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">🗑 Xóa</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>

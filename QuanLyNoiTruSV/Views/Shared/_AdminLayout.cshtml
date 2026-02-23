@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>ADMIN PAGE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap nếu bạn đang dùng -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- CSS Admin -->
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+        }
+
+        .admin-container {
+            display: flex;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 230px;
+            height: 100vh;
+            background: #b30000;
+            color: white;
+            position: fixed;
+        }
+
+            .sidebar h2 {
+                text-align: center;
+                padding: 15px 0;
+                color: #ffcc00;
+                font-weight: bold;
+            }
+
+            .sidebar ul {
+                list-style: none;
+                padding: 0;
+            }
+
+                .sidebar ul li {
+                    padding: 12px 20px;
+                    border-bottom: 1px solid #990000;
+                }
+
+                    .sidebar ul li a {
+                        color: white;
+                        text-decoration: none;
+                        display: block;
+                    }
+
+                    .sidebar ul li:hover {
+                        background: #ffcc00;
+                    }
+
+                        .sidebar ul li:hover a {
+                            color: #b30000;
+                            font-weight: bold;
+                        }
+
+        /* MAIN CONTENT */
+        .main {
+            margin-left: 230px;
+            width: 100%;
+        }
+
+        /* TOPBAR */
+        .topbar {
+            background: #ffcc00;
+            padding: 15px 20px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* CONTENT */
+        .content {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <h2>SB ADMIN</h2>
+            <div class="sidebar">
+                <h4>ADMIN</h4>
+                <ul>
+                    <li><a href="/Admin/Index">Dashboard</a></li>
+
+                    <li class="menu-title">Quản lý người</li>
+                    <li><a href="/NguoiDung/Index">Người dùng</a></li>
+                    <li><a href="/NhanVien/Index">Nhân viên</a></li>
+                    <li><a href="/SinhVien/Index">Sinh viên</a></li>
+
+                    <li class="menu-title">Quản lý nội trú</li>
+                    <li><a href="/KhuNoiTru/Index">Khu nội trú</a></li>
+                    <li><a href="/ToaNha/Index">Tòa nhà</a></li>
+                    <li><a href="/Phong/Index">Phòng</a></li>
+
+                    <li class="menu-title">Quản lý hợp đồng</li>
+                    <li><a href="/HopDong/Index">Hợp đồng</a></li>
+                    <li><a href="/HoaDon/Index">Hóa đơn</a></li>
+                    <li><a href="/DonDangKy/Index">Đơn đăng ký</a></li>
+
+                    <li class="menu-title">Phân công</li>
+                    <li><a href="/PhanCongNhanVien/Index">Phân công NV</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- MAIN -->
+        <div class="main">
+            <div class="topbar">
+                <span>ADMIN - PAGE</span>
+                <span>Nhân Viên 👤</span>
+            </div>
+
+            <div class="content">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+</body>
+</html>

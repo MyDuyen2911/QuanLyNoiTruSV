@@ -1,0 +1,32 @@
+﻿@model QuanLyNoiTruSV.Models.KhuNoiTru
+@{
+    ViewData["Title"] = "Thêm khu nội trú";
+}
+
+<div class="card theme-card">
+    <div class="theme-header">
+        Thêm khu nội trú
+    </div>
+
+    <div class="card-body">
+        <form asp-action="Create">
+            <div class="mb-3">
+                <label class="form-label">Tên khu</label>
+                <input asp-for="TenKhu" class="form-control" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Địa chỉ</label>
+                <input asp-for="DiaChi" class="form-control" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Mô tả</label>
+                <input asp-for="MoTa" class="form-control" />
+            </div>
+
+            <button type="submit" class="btn theme-btn-primary">Thêm</button>
+            <a asp-action="Index" class="btn theme-btn-warning">Quay lại</a>
+        </form>
+    </div>
+</div>
