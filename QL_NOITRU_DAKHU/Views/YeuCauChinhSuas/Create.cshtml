@@ -1,0 +1,24 @@
+﻿@model QL_NOITRU_DAKHU.Models.YeuCauChinhSua
+
+<div style="background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); padding: 30px; max-width: 600px; margin: 0 auto; border-top: 5px solid #3b82f6;">
+    <h3 style="margin-top: 0; color: #1e293b; border-bottom: 2px solid #f1f5f9; padding-bottom: 15px; margin-bottom: 20px;">
+        ✏️ Yêu Cầu Cập Nhật Thông Tin
+    </h3>
+
+    <div style="background: #fffbeb; border: 1px solid #fde68a; padding: 15px; border-radius: 8px; margin-bottom: 25px; color: #92400e; font-size: 14px;">
+        <strong>Hướng dẫn:</strong> Vui lòng ghi rõ ràng thông tin bị sai và thông tin bạn muốn sửa lại. 
+        <br/><em>Ví dụ: "Số Căn cước công dân của em bị sai, số đúng là 091090123456"</em>
+    </div>
+
+    <form asp-action="Create">
+        <div style="margin-bottom: 25px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #475569;">Nội dung cần chỉnh sửa:</label>
+            <textarea asp-for="NoiDung" required rows="5" placeholder="Mô tả chi tiết thông tin bạn muốn thay đổi..." class="form-control" style="width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none; font-size: 15px; resize: vertical;"></textarea>
+        </div>
+
+        <div style="display: flex; gap: 15px;">
+            <button type="submit" style="background: #3b82f6; color: white; border: none; padding: 14px 25px; border-radius: 8px; cursor: pointer; font-weight: bold; flex: 1;">Gửi Yêu Cầu</button>
+            <a asp-action="Index" style="background: #f1f5f9; color: #475569; text-decoration: none; padding: 14px 25px; border-radius: 8px; font-weight: bold; text-align: center; flex: 1;">Hủy & Quay lại</a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,43 @@
+﻿@model QL_NOITRU_DAKHU.Models.HoaDon
+
+<div style="background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); padding: 30px; max-width: 600px; margin: 0 auto; border-top: 5px solid #ef4444;">
+    <h3 style="margin-top: 0; color: #dc2626; margin-bottom: 10px;">⚠️ Cảnh Báo: Hủy Hóa Đơn</h3>
+    <p style="color: #475569; margin-bottom: 25px;">Hành động này không thể hoàn tác. Bạn có chắc chắn muốn xóa vĩnh viễn hóa đơn <b>#@Model.MaHoaDon</b> này khỏi hệ thống không?</p>
+
+    <div style="background: #f8fafc; padding: 20px; border-radius: 8px; border: 1px dashed #cbd5e1; margin-bottom: 25px;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+            <span style="color: #64748b; font-weight: 600;">Đối tượng thu:</span>
+            <strong style="color: #1e293b;">
+                @(Model.MaSvNavigation != null ? $"SV: {Model.MaSvNavigation.HoTen}" : $"Phòng: {Model.MaPhongNavigation?.TenPhong}")
+            </strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+            <span style="color: #64748b; font-weight: 600;">Loại hóa đơn:</span>
+            <strong style="color: #0369a1;">@Model.LoaiHoaDon (@Model.ThangNam?.ToString("MM/yyyy"))</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+            <span style="color: #64748b; font-weight: 600;">Tổng tiền:</span>
+            <strong style="color: #dc2626; font-size: 16px;">@string.Format("{0:N0}", Model.TongTienSauGiam ?? Model.TongTien) VNĐ</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; border-top: 1px solid #e2e8f0; padding-top: 10px; margin-top: 5px;">
+            <span style="color: #64748b; font-weight: 600;">Trạng thái:</span>
+            @if (Model.TrangThai == "Đã thanh toán")
+            {
+                    <span style="color: #059669; font-weight: bold;">✅ Đã thanh toán</span>
+            }
+            else
+            {
+                    <span style="color: #d97706; font-weight: bold;">⏳ Chưa thanh toán</span>
+            }
+        </div>
+    </div>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="MaHoaDon" />
+
+        <div style="display: flex; gap: 15px;">
+            <button type="submit" style="background: #ef4444; color: white; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; font-weight: bold; flex: 1;">Xác nhận Xóa</button>
+            <a asp-action="Index" style="background: #f1f5f9; color: #475569; text-decoration: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; text-align: center; flex: 1;">Hủy bỏ</a>
+        </div>
+    </form>
+</div>

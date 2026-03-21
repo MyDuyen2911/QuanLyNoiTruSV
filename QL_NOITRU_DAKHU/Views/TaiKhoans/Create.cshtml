@@ -1,0 +1,58 @@
+﻿@model QL_NOITRU_DAKHU.Models.TaiKhoan
+
+<div style="background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); padding: 30px; max-width: 600px; margin: 0 auto; border-top: 5px solid #3b82f6;">
+    <h3 style="margin-top: 0; color: #1e293b; border-bottom: 2px solid #f1f5f9; padding-bottom: 15px; margin-bottom: 20px;">
+        @(Model == null || Model.MaTaiKhoan == 0 ? "Cấp Tài Khoản Mới" : "Cập Nhật Tài Khoản")
+    </h3>
+
+    @if (TempData["error"] != null)
+    {
+            <div style="background: #fee2e2; color: #991b1b; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                ❌ <strong>Lỗi:</strong> @TempData["error"]
+            </div>
+    }
+
+    <form asp-action="@(Model == null || Model.MaTaiKhoan == 0 ? "Create" : "Edit")">
+        @if (Model != null && Model.MaTaiKhoan > 0)
+        {
+            <input type="hidden" asp-for="MaTaiKhoan" />
+        }
+
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #475569;">Tên đăng nhập (Username)</label>
+            <input asp-for="Username" class="form-control" required style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none;" placeholder="Viết liền, không dấu..." />
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #475569;">Mật khẩu (Password)</label>
+            <input asp-for="PasswordHash" type="text" class="form-control" required style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none;" placeholder="Nhập mật khẩu..." />
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #475569;">Vai trò (Quyền hạn)</label>
+            <input asp-for="VaiTro" list="vaiTroList" class="form-control" required style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none;" />
+            <datalist id="vaiTroList">
+                <option value="SinhVien"></option>
+                <option value="NhanVien"></option>
+                <option value="Admin"></option>
+            </datalist>
+        </div>
+
+        <div style="margin-bottom: 25px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #475569;">Trạng thái tài khoản</label>
+            <input asp-for="TrangThai" list="trangThaiList" class="form-control" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none;" placeholder="Ví dụ: Hoạt động, Bị khóa..." />
+            <datalist id="trangThaiList">
+                <option value="Hoạt động"></option>
+                <option value="Khóa"></option>
+                <option value="Active"></option>
+                <option value="Inactive"></option>
+            </datalist>
+            <small style="color: #64748b; margin-top: 5px; display: block;">* Vui lòng nhập đúng chữ quy định trong Database của bạn.</small>
+        </div>
+
+        <div style="display: flex; gap: 15px;">
+            <button type="submit" style="background: #3b82f6; color: white; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; font-weight: bold; flex: 1;">Lưu Tài Khoản</button>
+            <a asp-action="Index" style="background: #f1f5f9; color: #475569; text-decoration: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; text-align: center; flex: 1;">Hủy</a>
+        </div>
+    </form>
+</div>

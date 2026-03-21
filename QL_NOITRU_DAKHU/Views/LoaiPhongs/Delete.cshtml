@@ -1,0 +1,12 @@
+﻿@model QL_NOITRU_DAKHU.Models.LoaiPhong
+<div class="form-card">
+    <div class="form-title" style="color: #e74c3c;">Xác nhận xóa Loại Phòng</div>
+    <p>Bạn có chắc chắn muốn xóa loại <b>@Model.TenLoai</b>? Các phòng thuộc loại này sẽ bị ảnh hưởng!</p>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="MaLoaiPhong" />
+        <div class="form-actions">
+            <button type="submit" class="btn btn-delete">Xác nhận xóa</button>
+            <a asp-action="Index" class="btn btn-cancel">Hủy bỏ</a>
+        </div>
+    </form>
+</div>

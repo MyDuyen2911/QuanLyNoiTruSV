@@ -1,0 +1,48 @@
+﻿@model QL_NOITRU_DAKHU.Models.HopDong
+
+<div style="background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); padding: 30px; max-width: 600px; margin: 0 auto;">
+    <h3 style="margin-top: 0; color: #1e293b; border-bottom: 2px solid #f1f5f9; padding-bottom: 15px; margin-bottom: 20px;">
+        @(Model == null ? "Tạo Hợp Đồng Mới" : "Cập Nhật Hợp Đồng")
+    </h3>
+
+    <form asp-action="@(Model == null ? "Create" : "Edit")">
+        @if (Model != null)
+        {
+            <input type="hidden" asp-for="MaHopDong" />
+        }
+
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #475569;">Chọn Sinh Viên</label>
+            <select asp-for="MaSv" class="form-control" asp-items="ViewBag.MaSv" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none;"></select>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #475569;">Chọn Phòng</label>
+            <select asp-for="MaPhong" class="form-control" asp-items="ViewBag.MaPhong" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none;"></select>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+            <div>
+                <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #475569;">Ngày Bắt Đầu</label>
+                <input asp-for="NgayBatDau" type="date" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none;" />
+            </div>
+            <div>
+                <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #475569;">Ngày Kết Thúc</label>
+                <input asp-for="NgayKetThuc" type="date" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none;" />
+            </div>
+        </div>
+
+        <div style="margin-bottom: 25px;">
+        <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #475569;">Trạng Thái</label>
+        <select asp-for="TrangThai" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none;">
+            <option value="Đang ở">Đang ở</option>
+            <option value="Đã rời">Đã rời</option>
+        </select>
+        </div>
+
+        <div style="display: flex; gap: 15px;">
+            <button type="submit" style="background: #3b82f6; color: white; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; font-weight: bold; flex: 1;">Lưu Thông Tin</button>
+            <a asp-action="Index" style="background: #f1f5f9; color: #475569; text-decoration: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; text-align: center; flex: 1;">Hủy & Quay lại</a>
+        </div>
+    </form>
+</div>

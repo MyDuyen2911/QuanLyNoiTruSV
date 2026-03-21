@@ -1,0 +1,33 @@
+﻿@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<div class="login-brand">
+    <img src="/images/logo-dntu.jpg" class="login-logo" />
+
+    <div class="login-system-name">
+        HỆ THỐNG QUẢN LÝ KHU NỘI TRÚ
+    </div>
+</div>
+<h2 class="login-title">Đăng nhập hệ thống</h2>
+
+@if (ViewBag.Error != null)
+{
+    <div class="login-error">@ViewBag.Error</div>
+}
+
+<form method="post" class="login-form">
+
+    <div class="form-group">
+        <label>Username</label>
+        <input type="text" name="username" placeholder="Nhập username" required />
+    </div>
+
+    <div class="form-group">
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Nhập password" required />
+    </div>
+
+    <button type="submit" class="btn-login">Đăng nhập</button>
+
+</form>

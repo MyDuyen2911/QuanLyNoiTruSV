@@ -1,0 +1,70 @@
+﻿@{
+    ViewData["Title"] = "Từ chối truy cập";
+    Layout = null; // Không dùng layout để hiện thông báo thuần túy
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Dừng lại!</title>
+    <style>
+        body {
+            background: #f4f7f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: sans-serif;
+            text-align: center;
+        }
+
+        .error-container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 450px;
+        }
+
+        .icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #e74c3c;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #7f8c8d;
+            line-height: 1.6;
+        }
+
+        .btn-back {
+            display: inline-block;
+            margin-top: 25px;
+            background: #3498db;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+            .btn-back:hover {
+                background: #2980b9;
+            }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div class="icon">🚫</div>
+        <h1>Dừng lại một chút!</h1>
+        <p>Bạn không có quyền truy cập vào khu vực này. Vui lòng quay lại hoặc liên hệ Admin nếu bạn cho rằng đây là một sự nhầm lẫn.</p>
+        <a href="/" class="btn-back">Quay về trang chủ</a>
+    </div>
+</body>
+</html>

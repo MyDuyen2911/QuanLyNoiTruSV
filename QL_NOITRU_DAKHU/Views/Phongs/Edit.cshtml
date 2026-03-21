@@ -1,0 +1,42 @@
+﻿@model QL_NOITRU_DAKHU.Models.Phong
+
+<div class="form-card">
+    <div class="form-title">Cập nhật thông tin Phòng</div>
+    <form asp-action="Edit">
+        <input type="hidden" asp-for="MaPhong" />
+
+        <div class="form-group">
+            <label>Tên Phòng</label>
+            <input asp-for="TenPhong" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label>Tầng</label>
+            <input asp-for="Tang" type="number" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label>Thuộc Tòa</label>
+            <select asp-for="MaToa" class="form-control" asp-items="ViewBag.MaToa"></select>
+        </div>
+
+        <div class="form-group">
+            <label>Loại Phòng</label>
+            <select asp-for="MaLoaiPhong" class="form-control" asp-items="ViewBag.MaLoaiPhong"></select>
+        </div>
+
+        <div style="margin-bottom: 25px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #475569;">Trạng Thái Phòng</label>
+            <select asp-for="TrangThai" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none;">
+                <option value="Trống">Trống</option>
+                <option value="Bảo trì">Bảo trì</option>
+                <option value="Đầy">Đầy</option>
+                </select>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-save">Cập nhật</button>
+            <a asp-action="Index" class="btn btn-cancel">Hủy bỏ</a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,23 @@
+﻿@model QL_NOITRU_DAKHU.Models.YeuCauChuyenPhong
+
+<div style="background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); padding: 30px; max-width: 600px; margin: 0 auto; border-top: 5px solid #3b82f6;">
+    <h3 style="margin-top: 0; color: #1e293b; border-bottom: 2px solid #f1f5f9; padding-bottom: 15px; margin-bottom: 20px;">
+        🔁 Xin Chuyển Sang Phòng Mới
+    </h3>
+
+    <div style="background: #eff6ff; border: 1px solid #bfdbfe; padding: 15px; border-radius: 8px; margin-bottom: 25px; color: #1e3a8a; font-size: 14px;">
+        <strong>Lưu ý:</strong> Danh sách bên dưới chỉ hiển thị các phòng hiện <strong>còn chỗ trống</strong>. Sau khi gửi yêu cầu, Ban quản lý sẽ xem xét và phản hồi.
+    </div>
+
+    <form asp-action="Create">
+        <div style="margin-bottom: 25px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #475569;">Chọn phòng bạn muốn chuyển tới</label>
+            <select asp-for="MaPhongMuonChuyen" class="form-control" asp-items="ViewBag.MaPhongMuonChuyen" required style="width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none; font-size: 16px;"></select>
+        </div>
+
+        <div style="display: flex; gap: 15px;">
+            <button type="submit" style="background: #3b82f6; color: white; border: none; padding: 14px 25px; border-radius: 8px; cursor: pointer; font-weight: bold; flex: 1;">Gửi Yêu Cầu</button>
+            <a asp-action="Index" style="background: #f1f5f9; color: #475569; text-decoration: none; padding: 14px 25px; border-radius: 8px; font-weight: bold; text-align: center; flex: 1;">Hủy & Quay lại</a>
+        </div>
+    </form>
+</div>

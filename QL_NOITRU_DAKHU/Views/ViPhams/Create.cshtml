@@ -1,0 +1,30 @@
+﻿@model QL_NOITRU_DAKHU.Models.ViPham
+
+<div style="background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); padding: 30px; max-width: 600px; margin: 0 auto;">
+    <h3 style="margin-top: 0; color: #1e293b; border-bottom: 2px solid #f1f5f9; padding-bottom: 15px; margin-bottom: 20px;">
+        @(Model == null ? "Thêm Lỗi Vi Phạm Mới" : "Cập Nhật Vi Phạm")
+    </h3>
+
+    <form asp-action="@(Model == null ? "Create" : "Edit")">
+        @if (Model != null)
+        {
+            <input type="hidden" asp-for="MaViPham" />
+        }
+
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #475569;">Tên Vi Phạm (Hành vi vi phạm)</label>
+            <textarea asp-for="TenViPham" class="form-control" rows="3" required placeholder="Ví dụ: Nấu ăn trong phòng, Về sau 23h..." style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none;"></textarea>
+        </div>
+
+        <div style="margin-bottom: 25px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #475569;">Mức Phạt Tiền (VNĐ)</label>
+            <input asp-for="MucPhat" type="number" step="1000" min="0" class="form-control" placeholder="Ví dụ: 50000" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none;" />
+            <small style="color: #64748b; margin-top: 5px; display: block;">Nhập số tiền phạt (Để 0 nếu chỉ cảnh cáo).</small>
+        </div>
+
+        <div style="display: flex; gap: 15px;">
+            <button type="submit" style="background: #3b82f6; color: white; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; font-weight: bold; flex: 1;">Lưu Thông Tin</button>
+            <a asp-action="Index" style="background: #f1f5f9; color: #475569; text-decoration: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; text-align: center; flex: 1;">Hủy & Quay lại</a>
+        </div>
+    </form>
+</div>

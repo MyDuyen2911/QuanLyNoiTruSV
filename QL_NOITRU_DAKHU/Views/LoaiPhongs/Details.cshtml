@@ -1,0 +1,30 @@
+﻿@model QL_NOITRU_DAKHU.Models.LoaiPhong
+
+<div class="form-card" style="margin-bottom:30px;">
+    <div class="form-title">Chi tiết: @Model.TenLoai</div>
+    <div class="detail-item"><span>Sức chứa tối đa:</span> <strong>@Model.SoNguoiToiDa người</strong></div>
+    <div class="detail-item"><span>Đơn giá tháng:</span> <strong style="color: #10b981;">@Model.GiaPhong?.ToString("N0") VND</strong></div>
+
+    <div class="form-actions" style="margin-top:20px;">
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-action="Edit" asp-route-id="@Model.MaLoaiPhong" class="btn btn-edit">Sửa</a>
+        }
+        <a asp-action="Index" class="btn btn-cancel">Quay lại</a>
+    </div>
+</div>
+
+<div class="table-container">
+    <div class="form-title" style="padding:0; margin-bottom:15px;">Danh sách phòng thuộc loại này</div>
+    <table class="table">
+        <thead>
+            <tr><th>Số Phòng</th><th>Trạng Thái</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model.Phongs)
+            {
+                <tr><td>@p.TenPhong</td><td>@p.TrangThai</td></tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<QL_NOITRU_DAKHU.Models.NhanVien>
+
+<h2 class="page-title">Quản lý Nhân viên</h2>
+
+<div class="header-actions">
+    <form method="get" class="search-box">
+        <input type="text" name="search" value="@ViewBag.CurrentSearch" placeholder="🔍 Tìm tên, SĐT, Email..." class="form-control" />
+        <button type="submit" class="btn btn-edit">Tìm kiếm</button>
+    </form>
+    <a asp-action="Create" class="btn btn-save">+ Thêm nhân viên mới</a>
+</div>
+
+<div class="table-container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Mã NV</th>
+                <th>Họ tên</th>
+                <th>Chức vụ</th>
+                <th>Điện thoại</th>
+                <th>Email</th>
+                <th>Trạng thái</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>NV@(item.MaNv.ToString("D3"))</td>
+                    <td><b>@item.HoTen</b></td>
+                    <td><span style="background: #eff6ff; color: #3b82f6; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold;">@item.ChucVu</span></td>
+                    <td>@item.DienThoai</td>
+                    <td>@item.Email</td>
+                    <td style="padding: 15px;">
+                        @if (item.TrangThai == "Đang làm") {
+                            <span style="background: #d1fae5; color: #059669; padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: bold;">💼 Đang làm</span>
+                        } else if (item.TrangThai == "Nghỉ việc") {
+                            <span style="background: #f1f5f9; color: #64748b; padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: bold;">👋 Nghỉ việc</span>
+                        } else {
+                            <span style="background: #fee2e2; color: #dc2626; padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: bold;">@item.TrangThai</span>
+                        }
+                    </td>
+                    <td class="action-btns">
+                        <a asp-action="Edit" asp-route-id="@item.MaNv" class="btn btn-edit">Sửa</a>
+                        <a asp-action="Details" asp-route-id="@item.MaNv" class="btn btn-save">Chi tiết</a>
+                        <a asp-action="Delete" asp-route-id="@item.MaNv" class="btn btn-delete">Xóa</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

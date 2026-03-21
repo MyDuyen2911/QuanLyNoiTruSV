@@ -1,0 +1,179 @@
+﻿@model QL_NOITRU_DAKHU.Models.HoaDon
+
+<div style="background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); padding: 30px; max-width: 700px; margin: 0 auto; border-top: 5px solid #3b82f6;">
+    <h3 style="margin-top: 0; color: #1e293b; border-bottom: 2px solid #f1f5f9; padding-bottom: 15px; margin-bottom: 20px;">
+        🧾 Lập Hóa Đơn Thu Phí
+    </h3>
+
+    <form asp-action="Create">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+            <div>
+                <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #475569;">Loại Hóa Đơn</label>
+                <select asp-for="LoaiHoaDon" id="LoaiHoaDon" required class="form-control" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none;">
+                    <option value="Tiền phòng">Tiền phòng</option>
+                    <option value="Tiền điện nước">Tiền điện nước</option>
+                    <option value="Chi phí khác">Chi phí khác</option>
+                </select>
+            </div>
+            <div>
+                <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #475569;">Kỳ thu (Tháng/Năm)</label>
+                <input asp-for="ThangNam" id="ThangNam" type="date" required class="form-control" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none;" />
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+            <div>
+                <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #475569;">Phòng (Tùy chọn)</label>
+                <select asp-for="MaPhong" id="MaPhong" class="form-control" asp-items="ViewBag.MaPhong" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none;">
+                    <option value="">-- Thu chung cả phòng --</option>
+                </select>
+            </div>
+            <div>
+                <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #475569;">Sinh Viên (Nếu thu cá nhân)</label>
+                <select asp-for="MaSv" id="MaSv" class="form-control" asp-items="ViewBag.MaSv" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none;">
+                    <option value="">-- Chọn Sinh Viên --</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="KhuVucTienPhong" style="background: #f8fafc; border: 1px dashed #cbd5e1; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #0369a1;">Học kỳ (Để dò % giảm giá Học lực)</label>
+            <input asp-for="HocKy" id="HocKy" placeholder="Ví dụ: HK1-2026" class="form-control" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none;" />
+            <small style="color: #64748b; margin-top: 5px; display: block;">* Nhập đúng Học kỳ đã import trong bảng Học Lực để lấy Ưu đãi.</small>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-bottom: 25px; background: #fffbeb; padding: 15px; border-radius: 8px; border: 1px solid #fde68a;">
+            <div>
+                <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #92400e;">Tổng Tiền Gốc (VNĐ)</label>
+                <input asp-for="TongTien" id="TongTien" type="number" required class="form-control" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none;" />
+            </div>
+            <div>
+                <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #92400e;">% Giảm Giá</label>
+                <input asp-for="TyLeGiam" id="TyLeGiam" type="number" readonly style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none; background: #e2e8f0; font-weight: bold; color: #059669;" />
+            </div>
+            <div>
+                <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #dc2626;">THU THỰC TẾ (VNĐ)</label>
+                <input asp-for="TongTienSauGiam" id="TongTienSauGiam" type="number" readonly style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #fecaca; outline: none; background: #fff5f5; font-weight: bold; color: #dc2626; font-size: 16px;" />
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 15px;">
+            <button type="submit" style="background: #3b82f6; color: white; border: none; padding: 14px 25px; border-radius: 8px; cursor: pointer; font-weight: bold; flex: 1;">Phát Hành Hóa Đơn</button>
+            <a asp-action="Index" style="background: #f1f5f9; color: #475569; text-decoration: none; padding: 14px 25px; border-radius: 8px; font-weight: bold; text-align: center; flex: 1;">Hủy</a>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var loaiHoaDon = document.getElementById("LoaiHoaDon");
+        var khuVucTienPhong = document.getElementById("KhuVucTienPhong");
+        var hocKy = document.getElementById("HocKy");
+        var maSv = document.getElementById("MaSv");
+        var maPhong = document.getElementById("MaPhong");
+        var tyLeGiam = document.getElementById("TyLeGiam");
+        var tongTien = document.getElementById("TongTien");
+        var tongTienSauGiam = document.getElementById("TongTienSauGiam");
+        var thangNam = document.getElementById("ThangNam");
+
+        function TinhTien() {
+            var goc = parseFloat(tongTien.value) || 0;
+            var giam = parseFloat(tyLeGiam.value) || 0;
+            tongTienSauGiam.value = goc * (1 - (giam / 100));
+        }
+
+        function LayUuDai() {
+            var svId = maSv.value;
+            var hk = hocKy.value;
+            if (loaiHoaDon.value === "Tiền phòng" && svId && hk) {
+                fetch(`/HoaDons/GetGiamGia?maSv=${svId}&hocKy=${hk}`)
+                    .then(r => r.json())
+                    .then(data => {
+                        tyLeGiam.value = data;
+                        TinhTien();
+                    });
+            } else {
+                tyLeGiam.value = 0;
+                TinhTien();
+            }
+        }
+
+        function XuLyTienPhong() {
+            var svId = maSv.value;
+            if (loaiHoaDon.value === "Tiền phòng" && svId) {
+                fetch(`/HoaDons/GetThongTinPhong?maSv=${svId}`)
+                    .then(r => r.json())
+                    .then(data => {
+                        if (data.success) {
+                            maPhong.value = data.maPhong; 
+
+                            // 👇 THÊM DÒNG NÀY ĐỂ NÓ ĐIỀN GIÁ TIỀN VÀO Ô 👇
+                            tongTien.value = data.giaTien; 
+
+                            TinhTien();
+                        } else {
+                            alert("Sinh viên này hiện không ở trong phòng nào!");
+                            maPhong.value = "";
+                        }
+                    });
+            }
+        }
+
+        function XuLyTienDienNuoc() {
+            var pId = maPhong.value;
+            var dateVal = thangNam.value;
+            if (loaiHoaDon.value === "Tiền điện nước" && pId && dateVal) {
+                var d = new Date(dateVal);
+                fetch(`/HoaDons/GetTienDienNuoc?maPhong=${pId}&thang=${d.getMonth()+1}&nam=${d.getFullYear()}`)
+                    .then(r => r.json())
+                    .then(data => {
+                        if (data.success) {
+                            tongTien.value = data.tien;
+                            TinhTien();
+                        } else {
+                            tongTien.value = 0;
+                            TinhTien();
+                            alert(data.message);
+                        }
+                    });
+            }
+        }
+
+        function CapNhatGiaoDien() {
+            if (loaiHoaDon.value === "Tiền phòng") {
+                maPhong.style.pointerEvents = "none";
+                maPhong.style.backgroundColor = "#e2e8f0";
+                maSv.style.pointerEvents = "auto";
+                maSv.style.backgroundColor = "";
+                khuVucTienPhong.style.display = "block";
+                XuLyTienPhong();
+            } 
+            else if (loaiHoaDon.value === "Tiền điện nước") {
+                maSv.style.pointerEvents = "none";
+                maSv.style.backgroundColor = "#e2e8f0";
+                maSv.value = ""; 
+                maPhong.style.pointerEvents = "auto";
+                maPhong.style.backgroundColor = "";
+                khuVucTienPhong.style.display = "none";
+                XuLyTienDienNuoc();
+            } 
+            else {
+                maPhong.style.pointerEvents = "auto";
+                maPhong.style.backgroundColor = "";
+                maSv.style.pointerEvents = "auto";
+                maSv.style.backgroundColor = "";
+                khuVucTienPhong.style.display = "none";
+            }
+            LayUuDai();
+        }
+
+        loaiHoaDon.addEventListener("change", CapNhatGiaoDien);
+        maSv.addEventListener("change", function() { LayUuDai(); XuLyTienPhong(); });
+        maPhong.addEventListener("change", XuLyTienDienNuoc);
+        thangNam.addEventListener("change", XuLyTienDienNuoc);
+        tongTien.addEventListener("input", TinhTien);
+        hocKy.addEventListener("input", LayUuDai);
+
+        CapNhatGiaoDien();
+    });
+</script>

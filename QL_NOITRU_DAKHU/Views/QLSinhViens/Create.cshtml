@@ -1,0 +1,67 @@
+﻿@model QL_NOITRU_DAKHU.Models.SinhVien
+@if (TempData["SuccessMessage"] != null)
+{
+    <div id="toast-success" class="toast-notification">
+        <div class="toast-message">@TempData["SuccessMessage"]</div>
+    </div>
+}
+<div class="form-card">
+    <div class="form-title">Thêm sinh viên</div>
+
+    <form asp-action="Create" method="post">
+
+        <div class="form-group">
+            <label>MSSV</label>
+            <input asp-for="Mssv" class="form-control" placeholder="Nhập MSSV" />
+        </div>
+
+        <div class="form-group">
+            <label>Họ tên</label>
+            <input asp-for="HoTen" class="form-control" placeholder="Nhập họ tên" />
+        </div>
+
+        <div class="form-group">
+            <label>Ngày sinh</label>
+            <input asp-for="NgaySinh" type="date"
+                   value="@(Model?.NgaySinh?.ToString("yyyy-MM-dd"))"
+                   class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label>Giới tính</label>
+            <select asp-for="GioiTinh" class="form-control">
+                <option value="">-- Chọn giới tính --</option>
+                <option value="Nam">Nam</option>
+                <option value="Nữ">Nữ</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>CCCD</label>
+            <input asp-for="Cccd" class="form-control" placeholder="Nhập số CCCD" />
+        </div>
+
+        <div class="form-group">
+            <label>Điện thoại</label>
+            <input asp-for="DienThoai" class="form-control" placeholder="Nhập số điện thoại" />
+        </div>
+
+        <div class="form-group">
+            <label>Địa chỉ</label>
+            <input asp-for="DiaChi" class="form-control" placeholder="Nhập địa chỉ" />
+        </div>
+
+        <div class="form-group">
+            <label>Tài khoản</label>
+            <select asp-for="MaTaiKhoan" asp-items="ViewBag.MaTaiKhoan" class="form-control">
+                <option value="">-- Chọn tài khoản --</option>
+            </select>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-save">Thêm sinh viên</button>
+            <a asp-action="Index" class="btn btn-cancel">Quay lại</a>
+        </div>
+
+    </form>
+</div>

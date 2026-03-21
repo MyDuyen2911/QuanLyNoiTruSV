@@ -1,0 +1,17 @@
+﻿@{
+    // Nếu là Admin hoặc Nhân viên -> Tự động chuyển hướng sang trang Admin
+    if (User.IsInRole("Admin") || User.IsInRole("NhanVien"))
+    {
+        Context.Response.Redirect("/Admin/Index");
+    }
+    // Nếu là Sinh viên -> Tự động chuyển hướng sang trang Cá nhân
+    else if (User.IsInRole("SinhVien"))
+    {
+        Context.Response.Redirect("/QLSinhViens/MyProfile");
+    }
+    // Nếu chưa đăng nhập hoặc có lỗi -> Đẩy ra trang Đăng nhập
+    else
+    {
+        Context.Response.Redirect("/Account/Login"); // Đổi lại đúng đường dẫn trang Login của bạn nếu cần
+    }
+}

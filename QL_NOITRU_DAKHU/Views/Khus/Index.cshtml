@@ -1,0 +1,58 @@
+﻿@model IEnumerable<QL_NOITRU_DAKHU.Models.Khu>
+
+<h2 class="page-title">Quản lý Khu Nội trú</h2>
+
+<div class="header-actions">
+    <form method="get" class="search-box" style="display: flex; gap: 10px;">
+        <input type="text" name="search" value="@ViewBag.CurrentSearch"
+               placeholder="🔍 Tìm kiếm nhanh..." class="form-control"
+               style="width: 250px; margin-bottom: 0;" />
+        <button type="submit" class="btn btn-edit">Tìm</button>
+    </form>
+    @if (User.IsInRole("Admin") || User.IsInRole("NhanVien"))
+    {
+        <a asp-action="Create" class="btn btn-save">+ Thêm Khu mới</a>
+    }
+</div>
+
+<div class="table-container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Mã Khu</th>
+                <th>Tên Khu</th>
+                <th>Loại Khu</th>
+                <th>Trạng thái</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>K-@item.MaKhu.ToString("D2")</td>
+                    <td><b>@item.TenKhu</b></td>
+                    <td>@item.LoaiKhu</td>
+                    <td>
+                        <span class="status-badge @(item.TrangThai == "Hoạt động" ? "active" : "locked")">
+                            @item.TrangThai
+                        </span>
+                    </td>
+                    <td class="action-btns">
+                        <a asp-action="Details" asp-route-id="@item.MaKhu" class="btn btn-save">Chi tiết</a>
+
+                        @if (User.IsInRole("Admin") || User.IsInRole("NhanVien"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.MaKhu" class="btn btn-edit">Sửa</a>
+                        }
+
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a asp-action="Delete" asp-route-id="@item.MaKhu" class="btn btn-delete">Xóa</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

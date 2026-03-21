@@ -1,0 +1,139 @@
+﻿@using Microsoft.AspNetCore.Http
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QUẢN LÝ NỘI TRÚ ĐA KHU</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="logo">🏠 QUẢN LÝ NỘI TRÚ ĐA KHU</div>
+
+        <div class="user-info">
+            @if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                <span>Xin chào: <b>@User.Identity.Name</b></span>
+                <a asp-controller="Account" asp-action="Logout" class="logout-btn">Đăng xuất</a>
+            }
+        </div>
+    </header>
+
+    <div class="container">
+
+        @if (User.Identity != null && User.Identity.IsAuthenticated)
+        {
+            <div class="sidebar">
+
+                <div class="sidebar-title">ADMIN PANEL</div>
+
+                <a asp-controller="Home" asp-action="Index">🏠 Dashboard</a>
+
+                <!-- ================= SINH VIÊN ================= -->
+                <div class="menu-title toggle-menu">SINH VIÊN</div>
+                <div class="menu-group">
+                    <a asp-controller="QLSinhViens" asp-action="Index">👨‍🎓 Sinh viên</a>
+
+                    @* Sinh viên gửi đơn *@
+                    @if (User.IsInRole("SinhVien"))
+                    {
+                        <a asp-controller="DonDangKys" asp-action="Index">📝 Đơn đăng ký</a>
+                    }
+
+                    @* Admin duyệt đơn *@
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-controller="DonDangKies" asp-action="Index">📝 Duyệt đơn đăng ký</a>
+                    }
+
+                    <a asp-controller="HopDongs" asp-action="Index">📄 Hợp đồng</a>
+                    <a asp-controller="HocLucs" asp-action="Index">📊 Học lực</a>
+                    <a asp-controller="YeuCauChuyenPhongs" asp-action="Index">🔁 Duyệt yêu cầu chuyển phòng</a>
+                    <a asp-controller="YeuCauChinhSuas" asp-action="Index">✏️ Duyệt yêu cầu chỉnh sửa</a>
+                </div>
+
+                <!-- ================= PHÒNG & KHU ================= -->
+                <div class="menu-title toggle-menu">PHÒNG & KHU</div>
+                <div class="menu-group">
+                    <a asp-controller="Khus" asp-action="Index">📍 Khu</a>
+                    <a asp-controller="ToaNhas" asp-action="Index">🏢 Tòa nhà</a>
+                    <a asp-controller="LoaiPhongs" asp-action="Index">🛏 Loại phòng</a>
+                    <a asp-controller="Phongs" asp-action="Index">🚪 Phòng</a>
+                </div>
+
+                <!-- ================= TÀI SẢN & DỊCH VỤ ================= -->
+                <div class="menu-title toggle-menu">TÀI SẢN & DỊCH VỤ</div>
+                <div class="menu-group">
+                    <a asp-controller="TaiSans" asp-action="Index">🪑 Tài sản</a>
+                    <a asp-controller="PhongTaiSans" asp-action="Index">📦 Phòng - Tài sản</a>
+                    <a asp-controller="DienNuocs" asp-action="Index">⚡ Điện nước</a>
+                    <a asp-controller="SuaChuas" asp-action="Index">🔧 Sửa chữa</a>
+                </div>
+
+                <!-- ================= TÀI CHÍNH ================= -->
+                <div class="menu-title toggle-menu">TÀI CHÍNH</div>
+                <div class="menu-group">
+                    <a asp-controller="HoaDons" asp-action="Index">💰 Hóa đơn</a>
+                </div>
+
+                <!-- ================= VI PHẠM ================= -->
+                <div class="menu-title toggle-menu">VI PHẠM</div>
+                <div class="menu-group">
+                    <a asp-controller="ViPhams" asp-action="Index">⚠️ Vi phạm</a>
+                    <a asp-controller="BienBanViPhams" asp-action="Index">📑 Biên bản vi phạm</a>
+                </div>
+
+                <!-- ================= HỆ THỐNG ================= -->
+                @if (User.IsInRole("Admin"))
+                {
+                    <div class="menu-title toggle-menu">HỆ THỐNG</div>
+                    <div class="menu-group">
+                        <a asp-controller="NhanViens" asp-action="Index">👨‍💼 Quản lý Nhân viên</a>
+                        <a asp-controller="TaiKhoans" asp-action="Index">👤 Tài khoản</a>
+                        <a asp-controller="AuditLogs" asp-action="Index">🕒 Nhật ký hệ thống</a>
+                    </div>
+                }
+
+            </div>
+        }
+
+        <div class="main-content">
+            @RenderBody()
+        </div>
+
+    </div>
+
+    @RenderSection("Scripts", required: false)
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        document.querySelectorAll(".toggle-menu").forEach(menu => {
+            menu.addEventListener("click", function () {
+                this.classList.toggle("active")
+                this.nextElementSibling.classList.toggle("show")
+            })
+        })
+    </script>
+
+    <script>
+        @if (TempData["success"] != null)
+        {
+            <text>toastr.success("@TempData["success"]");</text>
+        }
+        @if (TempData["error"] != null)
+        {
+            <text>toastr.error("@TempData["error"]");</text>
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+﻿@model QL_NOITRU_DAKHU.Models.TaiSan
+
+<div style="background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); padding: 30px; max-width: 800px; margin: 0 auto; border-top: 5px solid #3b82f6;">
+    <h3 style="margin-top: 0; color: #1e293b; border-bottom: 2px solid #f1f5f9; padding-bottom: 15px; margin-bottom: 20px;">
+        Chi tiết danh mục: TS-@Model.MaTaiSan
+    </h3>
+
+    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 25px;">
+        <div style="background: #f8fafc; padding: 15px; border-radius: 8px;">
+            <span style="color: #64748b; font-size: 13px; text-transform: uppercase;">Tên danh mục</span><br/>
+            <strong style="font-size: 18px; color: #1e293b;">@Model.TenTaiSan</strong>
+        </div>
+        <div style="background: #e0f2fe; padding: 15px; border-radius: 8px; border: 1px solid #bae6fd;">
+            <span style="color: #0284c7; font-size: 13px; text-transform: uppercase;">Nhóm phân loại</span><br/>
+            <strong style="font-size: 16px; color: #0369a1;">@Model.LoaiTaiSan</strong>
+        </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px;">
+        <div style="border: 1px dashed #cbd5e1; padding: 15px; border-radius: 8px; text-align: center;">
+            <div style="font-size: 24px; color: #10b981; font-weight: bold;">@(Model.PhongTaiSans?.Count ?? 0)</div>
+            <span style="color: #64748b; font-size: 14px;">Số lần được phân bổ vào phòng</span>
+        </div>
+        <div style="border: 1px dashed #cbd5e1; padding: 15px; border-radius: 8px; text-align: center;">
+            <div style="font-size: 24px; color: #f59e0b; font-weight: bold;">@(Model.SuaChuas?.Count ?? 0)</div>
+            <span style="color: #64748b; font-size: 14px;">Số lần yêu cầu sửa chữa</span>
+        </div>
+    </div>
+
+    <div style="display: flex; gap: 15px;">
+        @if (!User.IsInRole("SinhVien"))
+        {
+                <a asp-action="Edit" asp-route-id="@Model.MaTaiSan" style="background: #f59e0b; color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: bold;">Chỉnh sửa thông tin</a>
+        }
+        <a asp-action="Index" style="background: #e2e8f0; color: #475569; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: bold;">Quay lại danh sách</a>
+    </div>
+</div>

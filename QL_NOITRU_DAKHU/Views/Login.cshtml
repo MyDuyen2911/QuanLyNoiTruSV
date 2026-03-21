@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<h2>Đăng nhập hệ thống KTX</h2>
+
+<form method="post">
+    <div>
+        Username
+        <input type="text" name="username" />
+    </div>
+
+    <div>
+        Password
+        <input type="password" name="password" />
+    </div>
+
+    <button type="submit">Đăng nhập</button>
+
+    <p style="color:red">@ViewBag.Error</p>
+</form>

@@ -1,0 +1,21 @@
+﻿@model QL_NOITRU_DAKHU.Models.DonDangKy
+
+<div class="form-card">
+    <div class="form-title">Đăng Ký Nội Trú</div>
+    <p style="color: #64748b; margin-bottom: 20px;">Vui lòng chọn phòng bạn mong muốn. Ban quản lý sẽ xem xét và phản hồi đơn của bạn.</p>
+
+    <form asp-action="Create">
+        <div class="form-group">
+            <label>Chọn Phòng Muốn Ở</label>
+            <select asp-for="MaPhongDangKy" class="form-control" asp-items="ViewBag.MaPhongDangKy">
+                <option value="">-- Danh sách phòng còn chỗ --</option>
+            </select>
+            <span class="text-danger" asp-validation-for="MaPhongDangKy"></span>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-save">Gửi Đơn Đăng Ký</button>
+            <a asp-action="Index" class="btn btn-cancel">Quay lại</a>
+        </div>
+    </form>
+</div>

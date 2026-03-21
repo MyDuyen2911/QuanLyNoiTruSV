@@ -1,0 +1,37 @@
+﻿@model QL_NOITRU_DAKHU.Models.TaiSan
+
+<div style="background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); padding: 30px; max-width: 600px; margin: 0 auto;">
+    <h3 style="margin-top: 0; color: #1e293b; border-bottom: 2px solid #f1f5f9; padding-bottom: 15px; margin-bottom: 20px;">
+        @(Model == null ? "Thêm Danh Mục Tài Sản Mới" : "Cập Nhật Thông Tin Tài Sản")
+    </h3>
+
+    <form asp-action="@(Model == null ? "Create" : "Edit")">
+        @if (Model != null)
+        {
+            <input type="hidden" asp-for="MaTaiSan" />
+        }
+
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #475569;">Tên Tài Sản</label>
+            <input asp-for="TenTaiSan" class="form-control" required placeholder="Ví dụ: Giường tầng sắt, Quạt trần Panasonic..." style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none;" />
+            <span asp-validation-for="TenTaiSan" style="color: red; font-size: 12px;"></span>
+        </div>
+
+        <div style="margin-bottom: 25px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #475569;">Phân Loại Tài Sản</label>
+            <input asp-for="LoaiTaiSan" list="loaiTaiSanList" class="form-control" placeholder="Nhập hoặc chọn phân loại..." style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none;" />
+            <datalist id="loaiTaiSanList">
+                <option value="Nội thất gỗ"></option>
+                <option value="Nội thất sắt"></option>
+                <option value="Thiết bị điện"></option>
+                <option value="Thiết bị vệ sinh"></option>
+                <option value="Thiết bị mạng"></option>
+            </datalist>
+        </div>
+
+        <div style="display: flex; gap: 15px;">
+            <button type="submit" style="background: #3b82f6; color: white; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; font-weight: bold; flex: 1;">Lưu Thông Tin</button>
+            <a asp-action="Index" style="background: #f1f5f9; color: #475569; text-decoration: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; text-align: center; flex: 1;">Hủy & Quay lại</a>
+        </div>
+    </form>
+</div>

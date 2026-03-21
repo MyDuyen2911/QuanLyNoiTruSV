@@ -1,0 +1,54 @@
+﻿@model IEnumerable<QL_NOITRU_DAKHU.Models.ToaNha>
+
+<h2 class="page-title">Quản lý Tòa Nhà</h2>
+
+<div class="header-actions">
+    <form method="get" class="search-box" style="display: flex; gap: 10px;">
+        <input type="text" name="search" value="@ViewBag.CurrentSearch"
+               placeholder="🔍 Tìm kiếm nhanh..." class="form-control"
+               style="width: 250px; margin-bottom: 0;" />
+        <button type="submit" class="btn btn-edit">Tìm</button>
+    </form>
+
+    @if (!User.IsInRole("SinhVien"))
+    {
+        <a asp-action="Create" class="btn btn-save">+ Thêm Mới</a>
+    }
+</div>
+<div class="table-container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Tên Tòa</th>
+                <th>Thuộc Khu</th>
+                <th>Trạng Thái</th>
+                <th>Thao Tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><b>@item.TenToa</b></td>
+                    <td>@item.MaKhuNavigation?.TenKhu</td>
+                    <td>
+                        <span class="status-badge @(item.TrangThai == "Hoạt động" ? "active" : "locked")">
+                            @item.TrangThai
+                        </span>
+                    </td>
+                    <td class="action-btns">
+                        <a asp-action="Details" asp-route-id="@item.MaToa" class="btn btn-save">Chi tiết</a>
+                        @if (!User.IsInRole("SinhVien"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.MaToa" class="btn btn-edit">Sửa</a>
+                        }
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a asp-action="Delete" asp-route-id="@item.MaToa" class="btn btn-delete">Xóa</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

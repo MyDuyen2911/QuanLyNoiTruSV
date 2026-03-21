@@ -1,0 +1,30 @@
+﻿@model QL_NOITRU_DAKHU.Models.ToaNha
+
+<h2 class="page-title">Chi tiết Tòa: @Model.TenToa</h2>
+
+<div class="form-card" style="margin-bottom:20px;">
+    <div class="detail-item"><span>Thuộc Khu:</span> <strong>@Model.MaKhuNavigation?.TenKhu</strong></div>
+    <div class="detail-item"><span>Trạng thái:</span> <strong>@Model.TrangThai</strong></div>
+</div>
+
+<div class="table-container">
+    <div class="form-title" style="padding:0; margin-bottom:15px;">🚪 Danh sách Phòng trong tòa</div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Số Phòng</th>
+                <th>Loại Phòng</th>
+                <th>Số người hiện tại</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model.Phongs)
+            {
+                <tr>
+                    <td>@p.TenPhong</td>
+                    <td>@p.MaLoaiPhongNavigation?.TenLoai</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

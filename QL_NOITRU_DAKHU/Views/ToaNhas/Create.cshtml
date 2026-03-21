@@ -1,0 +1,37 @@
+﻿@model QL_NOITRU_DAKHU.Models.ToaNha
+
+<div class="form-card">
+    <div class="form-title">Thông tin Tòa Nhà</div>
+    <form asp-action="@(Model == null ? "Create" : "Edit")">
+        @if (Model != null)
+        {
+            <input type="hidden" asp-for="MaToa" />
+        }
+
+        <div class="form-group">
+            <label>Tên Tòa Nhà</label>
+            <input asp-for="TenToa" class="form-control" required placeholder="Ví dụ: Tòa A1" />
+        </div>
+
+        <div class="form-group">
+            <label>Thuộc Khu</label>
+            <select asp-for="MaKhu" class="form-control" asp-items="ViewBag.MaKhu">
+                <option value="">-- Chọn Khu Nội Trú --</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Trạng Thái</label>
+            <select asp-for="TrangThai" class="form-control">
+                <option value="Hoạt động">Hoạt động</option>
+                <option value="Bảo trì">Bảo trì</option>
+                <option value="Hết phòng">Hết phòng</option>
+            </select>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-save">Lưu lại</button>
+            <a asp-action="Index" class="btn btn-cancel">Hủy</a>
+        </div>
+    </form>
+</div>

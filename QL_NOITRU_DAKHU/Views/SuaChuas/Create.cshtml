@@ -1,0 +1,43 @@
+﻿@model QL_NOITRU_DAKHU.Models.SuaChua
+
+<div style="background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); padding: 30px; max-width: 600px; margin: 0 auto; border-top: 5px solid #f59e0b;">
+    <h3 style="margin-top: 0; color: #1e293b; border-bottom: 2px solid #f1f5f9; padding-bottom: 15px; margin-bottom: 20px;">
+        📝 Báo Cáo Hỏng Hóc Thiết Bị
+    </h3>
+
+    @if (TempData["error"] != null)
+    {
+            <div style="background: #fee2e2; color: #991b1b; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 5px solid #dc2626;">
+                ❌ <strong>Lỗi:</strong> @TempData["error"]
+            </div>
+    }
+
+    <form asp-action="Create">
+
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #475569;">Trạng Thái Yêu Cầu</label>
+            <input asp-for="TrangThai" class="form-control" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none;" placeholder="Ví dụ: Chưa sửa, Đang sửa, Chờ xử lý..." />
+            <small style="color: #64748b;">* Gõ chữ đúng theo luật SQL của bạn nhé (VD: "Chưa sửa" hoặc "Chờ xử lý")</small>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #475569;">Phòng báo hỏng</label>
+            <select asp-for="MaPhong" class="form-control" asp-items="ViewBag.MaPhong" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none;"></select>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #475569;">Thiết Bị Cần Sửa Chữa</label>
+            <select asp-for="MaTaiSan" class="form-control" asp-items="ViewBag.MaTaiSan" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none;"></select>
+        </div>
+
+        <div style="margin-bottom: 25px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #475569;">Ngày Báo Hỏng</label>
+            <input asp-for="NgayBaoHong" type="date" value="@Model.NgayBaoHong?.ToString("yyyy-MM-dd")" required class="form-control" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none;" />
+        </div>
+
+        <div style="display: flex; gap: 15px;">
+            <button type="submit" style="background: #f59e0b; color: white; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; font-weight: bold; flex: 1;">Gửi Báo Cáo</button>
+            <a asp-action="Index" style="background: #f1f5f9; color: #475569; text-decoration: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; text-align: center; flex: 1;">Hủy</a>
+        </div>
+    </form>
+</div>

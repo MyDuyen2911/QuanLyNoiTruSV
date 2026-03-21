@@ -1,0 +1,18 @@
+﻿@model QL_NOITRU_DAKHU.Models.ViPham
+
+<div style="background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); padding: 30px; max-width: 600px; margin: 0 auto; border-top: 5px solid #ef4444;">
+    <h3 style="margin-top: 0; color: #dc2626; margin-bottom: 10px;">⚠️ Xác nhận Xóa Nội Quy</h3>
+    <p style="color: #475569; margin-bottom: 15px;">Bạn đang yêu cầu xóa quy định vi phạm: <b>@Model.TenViPham</b>.</p>
+
+    <div style="background: #fff5f5; border: 1px solid #fecaca; padding: 15px; border-radius: 8px; margin-bottom: 25px; color: #991b1b; font-size: 14px;">
+        <strong>Lưu ý quan trọng:</strong> Nếu lỗi này đã từng được dùng để lập Biên Bản cho sinh viên, hệ thống sẽ chặn không cho xóa để bảo vệ tính toàn vẹn của dữ liệu cũ.
+    </div>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="MaViPham" />
+        <div style="display: flex; gap: 15px;">
+            <button type="submit" style="background: #ef4444; color: white; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; font-weight: bold;">Xác nhận Xóa vĩnh viễn</button>
+            <a asp-action="Index" style="background: #f1f5f9; color: #475569; text-decoration: none; padding: 12px 25px; border-radius: 8px; font-weight: bold;">Hủy bỏ</a>
+        </div>
+    </form>
+</div>

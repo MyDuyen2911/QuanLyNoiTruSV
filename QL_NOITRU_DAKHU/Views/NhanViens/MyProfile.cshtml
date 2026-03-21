@@ -1,0 +1,15 @@
+﻿@model QL_NOITRU_DAKHU.Models.NhanVien
+
+<div class="form-card">
+    <div class="form-title">Hồ sơ Nhân viên</div>
+    <div class="form-group">
+        <label>Họ tên:</label>
+        <div class="form-control" style="background:#f8fafc;">@Model.HoTen</div>
+    </div>
+    <div class="detail-item">
+        <span>Chức vụ:</span> <strong>@Model.ChucVu</strong>
+    </div>
+    <div class="form-actions">
+        <a asp-action="Index" asp-controller="Admin" class="btn btn-cancel">Quay lại Dashboard</a>
+    </div>
+</div>

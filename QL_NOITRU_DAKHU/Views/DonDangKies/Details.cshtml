@@ -1,0 +1,50 @@
+﻿@model QL_NOITRU_DAKHU.Models.DienNuoc
+
+@{
+    var tieuThu = (Model.ChiSoCuoi ?? 0) - (Model.ChiSoDau ?? 0);
+    var thanhTien = tieuThu * (Model.DonGia ?? 0);
+}
+
+<div style="background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); padding: 30px; max-width: 600px; margin: 0 auto; border-top: 5px solid #10b981;">
+    <div style="text-align: center; margin-bottom: 25px; border-bottom: 2px dashed #e2e8f0; padding-bottom: 20px;">
+        <div style="font-size: 40px; margin-bottom: 10px;">⚡💧</div>
+        <h3 style="margin: 0; color: #1e293b; font-size: 22px;">Chi Tiết Tiêu Thụ Điện Nước</h3>
+        <p style="color: #64748b; margin-top: 5px;">Kỳ thanh toán: Tháng <strong>@Model.Thang/@Model.Nam</strong></p>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 16px;">
+        <span style="color: #475569;">Căn phòng:</span>
+        <strong style="color: #0369a1; font-size: 18px;">@Model.MaPhongNavigation?.TenPhong</strong>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+        <span style="color: #64748b;">Chỉ số đầu kỳ:</span>
+        <strong>@Model.ChiSoDau</strong>
+    </div>
+    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+        <span style="color: #64748b;">Chỉ số cuối kỳ:</span>
+        <strong>@Model.ChiSoCuoi</strong>
+    </div>
+    <div style="display: flex; justify-content: space-between; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #f1f5f9;">
+        <span style="color: #64748b;">Mức tiêu thụ:</span>
+        <strong style="color: #059669;">@tieuThu (KWh/m3)</strong>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+        <span style="color: #64748b;">Đơn giá áp dụng:</span>
+        <strong>@string.Format("{0:N0}", Model.DonGia) VNĐ</strong>
+    </div>
+
+    <div style="background: #fff5f5; padding: 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #fecaca; margin-bottom: 25px;">
+        <span style="color: #991b1b; font-weight: bold; font-size: 16px;">TỔNG THÀNH TIỀN:</span>
+        <strong style="color: #dc2626; font-size: 24px;">@string.Format("{0:N0}", thanhTien) VNĐ</strong>
+    </div>
+
+    <div style="display: flex; gap: 15px;">
+        @if (!User.IsInRole("SinhVien"))
+        {
+                <a asp-action="Edit" asp-route-id="@Model.MaDienNuoc" style="background: #f59e0b; color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; text-align: center; flex: 1;">Chỉnh sửa</a>
+        }
+        <a asp-action="Index" style="background: #f1f5f9; color: #475569; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; text-align: center; flex: 1;">Quay lại</a>
+    </div>
+</div>

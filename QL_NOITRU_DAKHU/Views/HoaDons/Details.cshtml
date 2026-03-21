@@ -1,0 +1,98 @@
+﻿@model QL_NOITRU_DAKHU.Models.HoaDon
+
+<div style="max-width: 650px; margin: 0 auto;">
+    <div style="display: flex; justify-content: space-between; margin-bottom: 20px;" class="no-print">
+        <a asp-action="Index" style="background: #f1f5f9; color: #475569; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: bold;">⬅ Quay lại</a>
+        <button onclick="window.print()" style="background: #3b82f6; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+            🖨️ In Biên Lai
+        </button>
+    </div>
+
+    <div style="background: white; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); padding: 40px; border-top: 8px solid #0f172a; position: relative;">
+
+        @if (Model.TrangThai == "Đã thanh toán")
+        {
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-30deg); font-size: 80px; color: rgba(16, 185, 129, 0.1); font-weight: 900; pointer-events: none; text-transform: uppercase; border: 10px solid rgba(16, 185, 129, 0.1); padding: 20px; border-radius: 20px;">
+                    ĐÃ THU TIỀN
+                </div>
+        }
+        else
+        {
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-30deg); font-size: 80px; color: rgba(239, 68, 68, 0.1); font-weight: 900; pointer-events: none; text-transform: uppercase; border: 10px solid rgba(239, 68, 68, 0.1); padding: 20px; border-radius: 20px;">
+                    CHƯA THANH TOÁN
+                </div>
+        }
+
+        <div style="text-align: center; margin-bottom: 30px; border-bottom: 2px dashed #cbd5e1; padding-bottom: 25px;">
+            <div style="font-size: 45px; margin-bottom: 10px;">🧾</div>
+            <h2 style="margin: 0; color: #1e293b; font-size: 24px; text-transform: uppercase; letter-spacing: 1px;">Biên Lai Thu Tiền</h2>
+            <p style="color: #64748b; margin-top: 5px; font-size: 15px;">Mã hóa đơn: <strong>#@Model.MaHoaDon.ToString("D5")</strong></p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px;">
+            <div>
+                <span style="color: #64748b; font-size: 13px; text-transform: uppercase; display: block; margin-bottom: 5px;">Thông tin nộp tiền</span>
+                @if (Model.MaSvNavigation != null)
+                {
+                        <strong style="font-size: 18px; color: #0369a1; display: block;">@Model.MaSvNavigation.HoTen</strong>
+                        <span style="color: #475569;">MSSV: @Model.MaSvNavigation.Mssv</span>
+
+                    <br/>
+                        <span style="color: #475569;">Phòng: @(Model.MaPhongNavigation?.TenPhong ?? "Chưa xếp phòng")</span>
+                }
+                else
+                {
+                        <strong style="font-size: 18px; color: #d97706; display: block;">Phòng @(Model.MaPhongNavigation?.TenPhong)</strong>
+                        <span style="color: #475569;">Thu chung cho cả phòng</span>
+                }
+            </div>
+            <div style="text-align: right;">
+                <span style="color: #64748b; font-size: 13px; text-transform: uppercase; display: block; margin-bottom: 5px;">Kỳ thanh toán</span>
+                <strong style="font-size: 16px; color: #1e293b; display: block;">@Model.LoaiHoaDon</strong>
+                <span style="color: #475569;">Tháng: @Model.ThangNam?.ToString("MM/yyyy")</span><br/>
+                @if (!string.IsNullOrEmpty(Model.HocKy))
+                {
+                        <span style="color: #475569;">Học kỳ: @Model.HocKy</span>
+                }
+            </div>
+        </div>
+
+        <div style="background: #f8fafc; border-radius: 8px; padding: 20px; margin-bottom: 30px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 16px;">
+                <span style="color: #475569;">Tiền gốc:</span>
+                <strong style="color: #1e293b;">@string.Format("{0:N0}", Model.TongTien) VNĐ</strong>
+            </div>
+
+            @if (Model.TyLeGiam > 0)
+            {
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 16px;">
+                        <span style="color: #475569;">Ưu đãi giảm giá (@Model.TyLeGiam%):</span>
+                        <strong style="color: #059669;">- @string.Format("{0:N0}", Model.TongTien * (Model.TyLeGiam / 100)) VNĐ</strong>
+                    </div>
+            }
+
+            <div style="display: flex; justify-content: space-between; border-top: 2px dashed #cbd5e1; padding-top: 15px; margin-top: 5px;">
+                <span style="color: #0f172a; font-weight: 800; font-size: 18px;">TỔNG THANH TOÁN:</span>
+                <strong style="color: #dc2626; font-size: 22px;">@string.Format("{0:N0}", Model.TongTienSauGiam ?? Model.TongTien) VNĐ</strong>
+            </div>
+        </div>
+
+        <div style="text-align: center; color: #64748b; font-size: 14px; font-style: italic;">
+            @if (Model.TrangThai == "Đã thanh toán")
+            {
+                    <p>Cảm ơn bạn đã thanh toán đúng hạn! 🥰</p>
+            }
+            else
+            {
+                    <p>Vui lòng thanh toán tại Ban Quản Lý KTX hoặc chuyển khoản qua ngân hàng.</p>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    @@media print {
+        .no-print { display: none !important; }
+        body { background: white; }
+    }
+</style>

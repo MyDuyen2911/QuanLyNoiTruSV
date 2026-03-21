@@ -1,0 +1,38 @@
+﻿@model QL_NOITRU_DAKHU.Models.SinhVien
+
+<div class="form-card">
+    <div class="form-title" style="color: #dc2626;">⚠️ Xác nhận xóa sinh viên</div>
+
+    <p style="color: #475569; margin-bottom: 20px;">Bạn có chắc chắn muốn xóa dữ liệu của sinh viên này không? Thao tác này không thể hoàn tác.</p>
+
+    <div style="background-color: #fef2f2; border: 1px solid #fecaca; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
+        <div class="form-group">
+            <label style="color: #991b1b;">MSSV:</label>
+            <div class="form-control" style="background: transparent; border: none; padding: 0; font-weight: bold; color: #7f1d1d;">@Model.Mssv</div>
+        </div>
+
+        <div class="form-group">
+            <label style="color: #991b1b;">Họ tên:</label>
+            <div class="form-control" style="background: transparent; border: none; padding: 0; font-weight: bold; color: #7f1d1d;">@Model.HoTen</div>
+        </div>
+
+        <div class="form-group">
+            <label style="color: #991b1b;">CCCD:</label>
+            <div class="form-control" style="background: transparent; border: none; padding: 0; font-weight: bold; color: #7f1d1d;">@Model.Cccd</div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 0;">
+            <label style="color: #991b1b;">Điện thoại:</label>
+            <div class="form-control" style="background: transparent; border: none; padding: 0; font-weight: bold; color: #7f1d1d;">@Model.DienThoai</div>
+        </div>
+    </div>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="MaSv" />
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-delete">Xác nhận xóa</button>
+            <a asp-action="Index" class="btn btn-cancel">Hủy</a>
+        </div>
+    </form>
+</div>

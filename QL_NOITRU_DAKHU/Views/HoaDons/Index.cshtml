@@ -1,0 +1,117 @@
+﻿@model IEnumerable<QL_NOITRU_DAKHU.Models.HoaDon>
+
+<div style="margin-bottom: 25px;">
+    <h2 style="margin: 0; color: #1e293b; font-size: 26px; font-weight: bold;">💰 Quản Lý Tài Chính & Hóa Đơn</h2>
+    <p style="color: #64748b; margin-top: 5px;">Theo dõi các khoản thu tiền phòng, điện nước và chi phí khác.</p>
+</div>
+
+@if (TempData["success"] != null)
+{
+        <div style="background: #d1fae5; color: #065f46; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 5px solid #10b981;">
+            ✅ <strong>@TempData["success"]</strong>
+        </div>
+}
+
+<div style="background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); padding: 25px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px;">
+        <form method="get" style="display: flex; gap: 10px; margin: 0; flex-wrap: wrap;">
+            <input type="text" name="search" value="@ViewBag.CurrentSearch" placeholder="🔍 Tìm SV, Phòng..." style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none;" />
+
+            <select name="loaiHoaDon" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none;">
+                <option value="">-- Mọi Loại Phí --</option>
+                <option value="Tiền phòng">Tiền phòng</option>
+                <option value="Tiền điện nước">Tiền điện nước</option>
+                <option value="Chi phí khác">Chi phí khác</option>
+            </select>
+
+            <select name="trangThai" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none;">
+                <option value="">-- Trạng thái --</option>
+                <option value="Chưa thanh toán">Chưa thanh toán</option>
+                <option value="Đã thanh toán">Đã thanh toán</option>
+            </select>
+
+            <button type="submit" style="background: #3b82f6; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600;">Lọc</button>
+            <a asp-action="Index" style="background: #f1f5f9; color: #475569; text-decoration: none; padding: 10px 15px; border-radius: 8px; font-weight: 600;">Xóa</a>
+        </form>
+
+        @if (!User.IsInRole("SinhVien"))
+        {
+                <a asp-action="Create" style="background: #10b981; color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 600;">➕ Lập Hóa Đơn Mới</a>
+        }
+    </div>
+
+    <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+            <thead>
+                <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0;">
+                    <th style="padding: 15px; color: #475569;">Mã HĐ</th>
+                    <th style="padding: 15px; color: #475569;">Đối Tượng</th>
+                    <th style="padding: 15px; color: #475569;">Loại Phí & Kỳ</th>
+                    <th style="padding: 15px; color: #475569;">Tổng Tiền (Đã Giảm)</th>
+                    <th style="padding: 15px; color: #475569;">Trạng Thái</th>
+                    <th style="padding: 15px; color: #475569;">Thao Tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                        <tr style="border-bottom: 1px solid #f1f5f9;">
+                            <td style="padding: 15px; font-weight: bold; color: #64748b;">#@item.MaHoaDon</td>
+                            <td style="padding: 15px;">
+                            @if (item.MaSvNavigation != null)
+                            {
+                                        <strong style="color: #0369a1;">SV: @item.MaSvNavigation.HoTen</strong>
+
+                                <br/>
+                                        <small>Phòng: @(item.MaPhongNavigation?.TenPhong ?? "N/A")</small>
+                            }
+                            else
+                            {
+                                        <strong style="color: #d97706;">P. @(item.MaPhongNavigation?.TenPhong ?? "N/A")</strong>
+
+                                <br/>
+                                        <small>Thu chung cả phòng</small>
+                            }
+                            </td>
+                            <td style="padding: 15px;">
+                                <strong>@item.LoaiHoaDon</strong><br/>
+                                <small>@item.ThangNam?.ToString("MM/yyyy") @(item.HocKy != null ? $"- {item.HocKy}" : "")</small>
+                            </td>
+                            <td style="padding: 15px;">
+                            @if (item.TyLeGiam > 0)
+                            {
+                                        <del style="color: #94a3b8; font-size: 12px;">@string.Format("{0:N0}", item.TongTien)đ</del>
+                                        <span style="background: #fef3c7; color: #b45309; padding: 2px 6px; border-radius: 4px; font-size: 11px; margin-left: 5px;">-@string.Format("{0:0.#}", item.TyLeGiam)%</span>
+
+                                <br/>
+                            }
+                                <strong style="color: #dc2626; font-size: 16px;">@string.Format("{0:N0}", item.TongTienSauGiam) VNĐ</strong>
+                            </td>
+                            <td style="padding: 15px;">
+                            @if (item.TrangThai == "Đã thanh toán")
+                            {
+                                        <span style="background: #d1fae5; color: #059669; padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: bold;">✅ Đã thu</span>
+                            }
+                            else
+                            {
+                                        <span style="background: #fee2e2; color: #dc2626; padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: bold;">⏳ Chưa đóng</span>
+                            }
+                            </td>
+                            <td style="padding: 15px; display: flex; gap: 8px;">
+                            @if (!User.IsInRole("SinhVien") && item.TrangThai == "Chưa thanh toán")
+                            {
+                                        <form asp-action="ThanhToan" asp-route-id="@item.MaHoaDon" method="post" onsubmit="return confirm('Xác nhận đã thu tiền hóa đơn này?');">
+                                            <button type="submit" style="background: #10b981; color: white; border: none; padding: 6px 12px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer;">Thu Tiền</button>
+                                        </form>
+                            }
+                            @if (User.IsInRole("Admin"))
+                            {
+                                        <a asp-action="Delete" asp-route-id="@item.MaHoaDon" style="background: #fee2e2; color: #dc2626; text-decoration: none; padding: 6px 12px; border-radius: 6px; font-size: 13px; font-weight: 600;">Xóa</a>
+                            }
+                            </td>
+                        </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

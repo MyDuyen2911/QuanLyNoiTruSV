@@ -1,0 +1,33 @@
+﻿@model QL_NOITRU_DAKHU.Models.AuditLog
+
+<div style="background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); padding: 30px; max-width: 600px; margin: 0 auto; border-top: 5px solid #1e293b;">
+    <h3 style="margin-top: 0; color: #1e293b; border-bottom: 2px dashed #e2e8f0; padding-bottom: 15px; margin-bottom: 20px;">
+        🔍 Chi Tiết Log #@Model.MaLog
+    </h3>
+
+    <div style="display: grid; grid-template-columns: 1fr; gap: 15px; margin-bottom: 25px;">
+        <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border-left: 4px solid #3b82f6;">
+            <span style="color: #64748b; font-size: 13px; text-transform: uppercase;">Người thực hiện</span><br/>
+            <strong style="font-size: 16px; color: #1e293b;">@@@(Model.MaTaiKhoanNavigation?.Username ?? "Tài khoản đã bị xóa")</strong>
+        </div>
+
+        <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border-left: 4px solid #10b981;">
+            <span style="color: #64748b; font-size: 13px; text-transform: uppercase;">Thời gian ghi nhận (Server Time)</span><br/>
+            <strong style="font-size: 16px; color: #1e293b;">@Model.ThoiGian?.ToString("dd/MM/yyyy HH:mm:ss")</strong>
+        </div>
+
+        <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border-left: 4px solid #f59e0b;">
+            <span style="color: #64748b; font-size: 13px; text-transform: uppercase;">Loại Hành Động</span><br/>
+            <strong style="font-size: 16px; color: #d97706;">@Model.HanhDong</strong>
+        </div>
+
+        <div style="background: #1e293b; padding: 20px; border-radius: 8px; color: #22c55e; font-family: monospace;">
+            <span style="color: #94a3b8; font-size: 13px; font-family: sans-serif; display: block; margin-bottom: 8px;">Dữ liệu mô tả (Raw Detail):</span>
+            > @Model.MoTa
+        </div>
+    </div>
+
+    <div style="display: flex; gap: 15px;">
+        <a asp-action="Index" style="background: #f1f5f9; color: #475569; text-decoration: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; text-align: center; width: 100%;">Trở về danh sách Logs</a>
+    </div>
+</div>

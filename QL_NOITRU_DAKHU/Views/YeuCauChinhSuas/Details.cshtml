@@ -1,0 +1,37 @@
+﻿@model QL_NOITRU_DAKHU.Models.YeuCauChinhSua
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "YeuCauChinhSuasController.cs";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>YeuCauChinhSua</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NoiDung)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NoiDung)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TrangThai)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TrangThai)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MaSvNavigation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MaSvNavigation.MaSv)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.MaYeuCau">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,80 @@
+﻿@{
+    ViewData["Title"] = "Import File Học Lực";
+}
+
+<div style="max-width: 850px; margin: 20px auto;">
+    <div style="background: white; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); overflow: hidden; border-top: 5px solid #10b981;">
+
+        <div style="padding: 30px;">
+            <h3 style="margin-top: 0; color: #1e293b; display: flex; align-items: center; gap: 10px;">
+                📥 Import File Điểm Hệ Thống
+            </h3>
+
+            <p style="color: #64748b; font-size: 14px; line-height: 1.6; margin-bottom: 25px;">
+                Tải lên file Excel (.xlsx) danh sách điểm từ Phòng Đào Tạo. Hệ thống sẽ tự động đối chiếu, 
+                <strong style="color: #10b981;">chỉ lọc ra những sinh viên đang lưu trú tại KTX</strong> 
+                và đạt loại Giỏi/Xuất sắc để áp dụng mã giảm giá dịch vụ.
+            </p>
+
+            @if (TempData["error"] != null)
+            {
+                    <div style="background: #fee2e2; color: #991b1b; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 5px solid #dc2626; font-size: 14px;">
+                        ❌ <strong>Lỗi:</strong> @TempData["error"]
+                    </div>
+            }
+
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; padding: 20px; border-radius: 10px; margin-bottom: 30px;">
+                <strong style="color: #0369a1; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 15px;">
+                    📋 Cấu trúc file Excel yêu cầu (Dữ liệu từ Dòng 2):
+                </strong>
+
+                <div style="overflow-x: auto;"> <table style="width: 100%; border-collapse: collapse; font-size: 13px; background: white;">
+                        <thead>
+                            <tr style="background: #f1f5f9;">
+                                <th style="padding: 10px; border: 1px solid #cbd5e1; color: #475569;">Cột A (MSSV)</th>
+                                <th style="padding: 10px; border: 1px solid #cbd5e1; color: #475569;">Cột B (Học Kỳ)</th>
+                                <th style="padding: 10px; border: 1px solid #cbd5e1; color: #475569;">Cột C (Xếp Loại)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #e2e8f0;">224719</td>
+                                <td style="padding: 10px; border: 1px solid #e2e8f0;">HK1-2025</td>
+                                <td style="padding: 10px; border: 1px solid #e2e8f0; color: #10b981; font-weight: bold;">Xuất sắc</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #e2e8f0;">224720</td>
+                                <td style="padding: 10px; border: 1px solid #e2e8f0;">HK1-2025</td>
+                                <td style="padding: 10px; border: 1px solid #e2e8f0; color: #3b82f6; font-weight: bold;">Giỏi</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <form asp-action="ImportExcel" method="post" enctype="multipart/form-data">
+                <div style="margin-bottom: 30px;">
+                    <label style="display: block; font-weight: 600; margin-bottom: 10px; color: #334155;">Chọn File Excel từ máy tính</label>
+                    <div style="position: relative; border: 2px dashed #cbd5e1; border-radius: 10px; padding: 30px; text-align: center; background: #fafafa; transition: all 0.3s;">
+                        <input type="file" name="fileUpload" accept=".xlsx" required 
+                               style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 2;" />
+                        <div style="z-index: 1;">
+                            <span style="font-size: 40px; display: block; margin-bottom: 10px;">📊</span>
+                            <span style="color: #64748b; font-size: 14px;">Kéo thả file vào đây hoặc <strong>nhấp để chọn file</strong></span>
+                            <br/><small style="color: #94a3b8;">Hỗ trợ định dạng: .xlsx</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 15px;">
+                    <button type="submit" style="background: #10b981; color: white; border: none; padding: 14px 25px; border-radius: 8px; cursor: pointer; font-weight: bold; flex: 2; transition: 0.2s;">
+                        🚀 Tiến Hành Lọc & Tải Lên
+                    </button>
+                    <a asp-action="Index" style="background: #f1f5f9; color: #475569; text-decoration: none; padding: 14px 25px; border-radius: 8px; font-weight: bold; text-align: center; flex: 1;">
+                        Quay lại
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

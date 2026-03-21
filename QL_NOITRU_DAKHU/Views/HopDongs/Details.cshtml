@@ -1,0 +1,35 @@
+﻿@model QL_NOITRU_DAKHU.Models.HopDong
+
+<div style="background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); padding: 30px; max-width: 800px; margin: 0 auto;">
+    <h3 style="margin-top: 0; color: #1e293b; border-bottom: 2px solid #f1f5f9; padding-bottom: 15px; margin-bottom: 20px;">
+        Chi tiết Hợp Đồng #@Model.MaHopDong
+    </h3>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px;">
+        <div style="background: #f8fafc; padding: 15px; border-radius: 8px;">
+            <span style="color: #64748b; font-size: 13px; text-transform: uppercase;">Sinh viên</span><br/>
+            <strong style="font-size: 16px; color: #1e293b;">@Model.MaSvNavigation?.HoTen</strong>
+        </div>
+        <div style="background: #f8fafc; padding: 15px; border-radius: 8px;">
+            <span style="color: #64748b; font-size: 13px; text-transform: uppercase;">Phòng ở</span><br/>
+            <strong style="font-size: 16px; color: #0369a1;">@Model.MaPhongNavigation?.TenPhong</strong>
+        </div>
+        <div style="background: #f8fafc; padding: 15px; border-radius: 8px;">
+            <span style="color: #64748b; font-size: 13px; text-transform: uppercase;">Thời hạn</span><br/>
+            <strong style="color: #10b981;">@Model.NgayBatDau?.ToString("dd/MM/yyyy")</strong> - 
+            <strong style="color: #ef4444;">@Model.NgayKetThuc?.ToString("dd/MM/yyyy")</strong>
+        </div>
+        <div style="background: #f8fafc; padding: 15px; border-radius: 8px;">
+            <span style="color: #64748b; font-size: 13px; text-transform: uppercase;">Trạng thái</span><br/>
+            <strong style="font-size: 16px;">@Model.TrangThai</strong>
+        </div>
+    </div>
+
+    <div style="display: flex; gap: 15px;">
+        @if (!User.IsInRole("SinhVien"))
+        {
+                <a asp-action="Edit" asp-route-id="@Model.MaHopDong" style="background: #f59e0b; color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: bold;">Chỉnh sửa</a>
+        }
+        <a asp-action="Index" style="background: #f1f5f9; color: #475569; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: bold;">Quay lại danh sách</a>
+    </div>
+</div>

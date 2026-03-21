@@ -1,0 +1,39 @@
+﻿@model QL_NOITRU_DAKHU.Models.BienBanViPham
+
+<div style="background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); padding: 30px; max-width: 800px; margin: 0 auto; border-top: 5px solid #f59e0b;">
+    <h3 style="margin-top: 0; color: #1e293b; border-bottom: 2px solid #f1f5f9; padding-bottom: 15px; margin-bottom: 20px;">
+        Chi tiết Biên Bản Kỷ Luật #@Model.MaBienBan
+    </h3>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px;">
+        <div style="background: #f8fafc; padding: 15px; border-radius: 8px;">
+            <span style="color: #64748b; font-size: 13px; text-transform: uppercase;">Người vi phạm</span><br/>
+            <strong style="font-size: 16px; color: #1e293b;">@Model.MaSvNavigation?.HoTen</strong>
+        </div>
+        <div style="background: #f8fafc; padding: 15px; border-radius: 8px;">
+            <span style="color: #64748b; font-size: 13px; text-transform: uppercase;">Ngày lập</span><br/>
+            <strong style="font-size: 16px;">@Model.NgayLap?.ToString("dd/MM/yyyy")</strong>
+        </div>
+        <div style="background: #fffbeb; padding: 15px; border-radius: 8px; border: 1px solid #fde68a;">
+            <span style="color: #b45309; font-size: 13px; text-transform: uppercase;">Hành vi vi phạm</span><br/>
+            <strong style="font-size: 16px; color: #d97706;">@Model.MaViPhamNavigation?.TenViPham</strong>
+        </div>
+        <div style="background: #fee2e2; padding: 15px; border-radius: 8px; border: 1px solid #fecaca;">
+            <span style="color: #991b1b; font-size: 13px; text-transform: uppercase;">Mức phạt tiền</span><br/>
+            <strong style="font-size: 18px; color: #dc2626;">@(Model.MaViPhamNavigation?.MucPhat?.ToString("N0") ?? "0") VNĐ</strong>
+        </div>
+    </div>
+
+    <div style="background: #f1f5f9; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
+        <span style="color: #475569; font-weight: bold; margin-bottom: 10px; display: block;">📝 Ghi chú chi tiết:</span>
+        <p style="margin: 0; color: #334155; line-height: 1.6; white-space: pre-wrap;">@(string.IsNullOrEmpty(Model.GhiChu) ? "Không có ghi chú thêm." : Model.GhiChu)</p>
+    </div>
+
+    <div style="display: flex; gap: 15px;">
+        @if (!User.IsInRole("SinhVien"))
+        {
+                <a asp-action="Edit" asp-route-id="@Model.MaBienBan" style="background: #3b82f6; color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: bold;">Chỉnh sửa</a>
+        }
+        <a asp-action="Index" style="background: #e2e8f0; color: #475569; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: bold;">Quay lại danh sách</a>
+    </div>
+</div>

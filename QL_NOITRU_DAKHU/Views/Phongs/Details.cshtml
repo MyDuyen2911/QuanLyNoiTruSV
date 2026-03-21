@@ -1,0 +1,66 @@
+﻿@model QL_NOITRU_DAKHU.Models.Phong
+
+<h2 class="page-title">Chi tiết Phòng: @Model.TenPhong</h2>
+
+<div class="form-card" style="margin-bottom: 30px;">
+    <div class="form-title">Thông tin chung</div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 10px;">
+        <div class="detail-item"><span>Mã số phòng:</span> <strong>P-@Model.MaPhong</strong></div>
+        <div class="detail-item"><span>Tầng:</span> <strong>@Model.Tang</strong></div>
+        <div class="detail-item"><span>Thuộc tòa:</span> <strong>@Model.MaToaNavigation?.TenToa</strong></div>
+        <div class="detail-item"><span>Loại phòng:</span> <strong>@Model.MaLoaiPhongNavigation?.TenLoai</strong></div>
+        <div class="detail-item">
+            <span>Trạng thái:</span>
+            <span class="status-badge @(Model.TrangThai == "Trống" ? "active" : "locked")">@Model.TrangThai</span>
+        </div>
+        <div class="detail-item"><span>Ghi chú:</span> <strong>@(Model.GhiChu ?? "Không có")</strong></div>
+    </div>
+
+    <div class="form-actions" style="margin-top: 20px;">
+        @if (!User.IsInRole("SinhVien"))
+        {
+                <a asp-action="Edit" asp-route-id="@Model.MaPhong" class="btn btn-edit">Chỉnh sửa</a>
+        }
+        <a asp-action="Index" class="btn btn-cancel">Quay lại danh sách</a>
+    </div>
+</div>
+
+<div class="table-container">
+    <div class="form-title" style="padding-left: 0; margin-bottom: 15px;">👥 Sinh viên đang lưu trú</div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Mã SV</th>
+                <th>Họ Tên</th>
+                <th>Ngày vào</th>
+                <th>Ngày hết hạn</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.HopDongs != null && Model.HopDongs.Any())
+            {
+                int stt = 1;
+                foreach (var hd in Model.HopDongs)
+                {
+                            <tr style="border-bottom: 1px solid #f1f5f9;">
+                                <td>@stt</td>
+                                <td><b>@hd.MaSvNavigation?.Mssv</b></td>
+                                <td>@hd.MaSvNavigation?.HoTen</td>
+                                <td>@hd.NgayBatDau?.ToString("dd/MM/yyyy")</td>
+                                <td>@hd.NgayKetThuc?.ToString("dd/MM/yyyy")</td>
+                            </tr>
+                    stt++;
+                }
+            }
+            else
+            {
+                    <tr>
+                        <td colspan="5" style="text-align: center; color: #94a3b8; padding: 20px;">
+                            Phòng hiện đang trống. Chưa có sinh viên lưu trú.
+                        </td>
+                    </tr>
+            }
+        </tbody>
+    </table>
+</div>

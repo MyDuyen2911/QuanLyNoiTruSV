@@ -1,0 +1,13 @@
+﻿@{
+    // Kiểm tra xem người đang đăng nhập có phải là SinhVien không?
+    if (User.IsInRole("SinhVien"))
+    {
+        // Nếu đúng -> Dùng file Layout của sinh viên
+        Layout = "_LayoutSinhVien";
+    }
+    else
+    {
+        // Nếu là Admin hoặc Nhân viên -> Dùng file Layout gốc
+        Layout = "_Layout";
+    }
+}

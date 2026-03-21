@@ -1,0 +1,12 @@
+﻿@model QL_NOITRU_DAKHU.Models.NhanVien
+<div class="form-card">
+    <div class="form-title" style="color: #dc2626;">⚠️ Xác nhận xóa Nhân viên</div>
+    <p>Bạn có chắc chắn muốn xóa dữ liệu của nhân viên <b>@Model.HoTen</b> (Chức vụ: @Model.ChucVu)?</p>
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="MaNv" />
+        <div class="form-actions">
+            <button type="submit" class="btn btn-delete">Xác nhận xóa</button>
+            <a asp-action="Index" class="btn btn-cancel">Hủy</a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,86 @@
+﻿@model QL_NOITRU_DAKHU.Models.DienNuoc
+
+<div style="background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); padding: 30px; max-width: 600px; margin: 0 auto; border-top: 5px solid #3b82f6;">
+    <h3 style="margin-top: 0; color: #1e293b; border-bottom: 2px solid #f1f5f9; padding-bottom: 15px; margin-bottom: 20px;">
+        @(Model.MaDienNuoc == 0 ? "⚡ Chốt Số Điện Nước Mới" : "Cập Nhật Chỉ Số Điện Nước")
+    </h3>
+
+    @if (TempData["error"] != null)
+    {
+            <div style="background: #fee2e2; color: #991b1b; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 5px solid #dc2626;">
+                ❌ <strong>@TempData["error"]</strong>
+            </div>
+    }
+
+    <form asp-action="@(Model.MaDienNuoc == 0 ? "Create" : "Edit")">
+        @if (Model.MaDienNuoc > 0)
+        {
+            <input type="hidden" asp-for="MaDienNuoc" />
+        }
+
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #475569;">Chọn Phòng</label>
+            <select asp-for="MaPhong" id="MaPhong" class="form-control" asp-items="ViewBag.MaPhong" required style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none;"></select>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+            <div>
+                <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #475569;">Tháng</label>
+                <input asp-for="Thang" type="number" min="1" max="12" required class="form-control" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none;" />
+            </div>
+            <div>
+                <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #475569;">Năm</label>
+                <input asp-for="Nam" type="number" min="2000" required class="form-control" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none;" />
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+            <div>
+                <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #475569;">Chỉ Số Đầu</label>
+                <input asp-for="ChiSoDau" id="ChiSoDau" type="number" min="0" required class="form-control" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none; background-color: #f8fafc;" />
+                <small style="color: #10b981; font-weight: bold;">(Tự động cập nhật từ tháng trước)</small>
+            </div>
+            <div>
+                <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #475569;">Chỉ Số Cuối</label>
+                <input asp-for="ChiSoCuoi" type="number" min="0" required class="form-control" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none;" />
+            </div>
+        </div>
+
+        <div style="margin-bottom: 25px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #475569;">Đơn giá quy định (VNĐ)</label>
+            <input asp-for="DonGia" type="number" step="0.01" required class="form-control" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none;" />
+        </div>
+
+        <div style="display: flex; gap: 15px;">
+            <button type="submit" style="background: #3b82f6; color: white; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; font-weight: bold; flex: 1;">Lưu Chỉ Số</button>
+            <a asp-action="Index" style="background: #f1f5f9; color: #475569; text-decoration: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; text-align: center; flex: 1;">Hủy</a>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var phongSelect = document.getElementById("MaPhong");
+        var chiSoDauInput = document.getElementById("ChiSoDau");
+
+        function loadChiSoDau() {
+            var maPhong = phongSelect.value;
+            if (maPhong) {
+                // Gọi ngầm lên Controller để lấy số
+                fetch('/DienNuocs/GetChiSoCuoi?maPhong=' + maPhong)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Điền số lấy được vào ô Chỉ Số Đầu
+                        chiSoDauInput.value = data;
+                    })
+                    .catch(error => console.error('Lỗi khi lấy chỉ số:', error));
+            }
+        }
+
+        // 1. Chạy ngay khi vừa mở trang (để load số cho phòng đầu tiên trong danh sách)
+        loadChiSoDau();
+
+        // 2. Chạy mỗi khi bạn click chọn phòng khác trong Dropdown
+        phongSelect.addEventListener("change", loadChiSoDau);
+    });
+</script>

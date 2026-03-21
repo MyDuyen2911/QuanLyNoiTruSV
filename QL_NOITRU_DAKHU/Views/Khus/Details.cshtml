@@ -1,0 +1,45 @@
+﻿@model QL_NOITRU_DAKHU.Models.Khu
+
+<h2 class="page-title">Chi tiết Khu: @Model.TenKhu</h2>
+
+<div class="form-card" style="margin-bottom: 30px;">
+    <div class="form-title">Thông tin cơ bản</div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 10px;">
+        <div class="detail-item"><span>Mã Khu:</span> <strong>K-@Model.MaKhu.ToString("D2")</strong></div>
+        <div class="detail-item"><span>Loại Khu:</span> <strong>@Model.LoaiKhu</strong></div>
+        <div class="detail-item"><span>Trạng thái:</span> <strong>@Model.TrangThai</strong></div>
+        <div class="detail-item"><span>Mô tả:</span> <strong>@Model.MoTa</strong></div>
+    </div>
+    
+    <div class="form-actions" style="margin-top: 20px;">
+        @if (User.IsInRole("Admin") || User.IsInRole("NhanVien")) {
+            <a asp-action="Edit" asp-route-id="@Model.MaKhu" class="btn btn-edit">Chỉnh sửa</a>
+        }
+        <a asp-action="Index" class="btn btn-cancel">Quay lại danh sách</a>
+    </div>
+</div>
+
+<div class="table-container">
+    <div class="form-title" style="padding-left: 0; margin-bottom: 15px;">🏢 Các Tòa nhà thuộc @Model.TenKhu</div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Tên Tòa Nhà</th>
+                <th>Số Tầng</th>
+                <th>Tình Trạng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.ToaNhas.Any()) {
+                foreach (var toa in Model.ToaNhas) {
+                    <tr>
+                        <td><b>@toa.TenToa</b></td>
+                        <td>@toa.TrangThai</td>
+                    </tr>
+                }
+            } else {
+                <tr><td colspan="3" style="text-align: center; color: #94a3b8; padding: 20px;">Chưa có tòa nhà nào.</td></tr>
+            }
+        </tbody>
+    </table>
+</div>

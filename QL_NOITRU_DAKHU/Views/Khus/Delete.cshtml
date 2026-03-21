@@ -1,0 +1,12 @@
+﻿@model QL_NOITRU_DAKHU.Models.Khu
+<div class="form-card">
+    <div class="form-title" style="color: #e74c3c;">Xác nhận xóa Khu</div>
+    <p>Hành động xóa <b>@Model.TenKhu</b> sẽ ảnh hưởng đến các Tòa nhà bên trong!</p>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="MaKhu" />
+        <div class="form-actions">
+            <button type="submit" class="btn btn-delete">Xóa vĩnh viễn</button>
+            <a asp-action="Index" class="btn btn-cancel">Hủy bỏ</a>
+        </div>
+    </form>
+</div>

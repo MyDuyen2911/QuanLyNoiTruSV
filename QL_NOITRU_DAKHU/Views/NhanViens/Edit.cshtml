@@ -1,0 +1,70 @@
+﻿@model QL_NOITRU_DAKHU.Models.NhanVien
+
+<div class="form-card">
+    <div class="form-title">Cập nhật Nhân viên</div>
+
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="MaNv" />
+
+        <div class="form-group">
+            <label>Họ tên</label>
+            <input asp-for="HoTen" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label>Ngày sinh</label>
+            <input asp-for="NgaySinh" type="date"
+                   value="@(Model.NgaySinh?.ToString("yyyy-MM-dd"))"
+                   class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label>Giới tính</label>
+            <select asp-for="GioiTinh" class="form-control">
+                <option value="Nam" selected="@(Model.GioiTinh == "Nam")">Nam</option>
+                <option value="Nữ" selected="@(Model.GioiTinh == "Nữ")">Nữ</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Điện thoại</label>
+            <input asp-for="DienThoai" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label>Email</label>
+            <input asp-for="Email" type="email" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label>Địa chỉ</label>
+            <input asp-for="DiaChi" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label>Chức vụ</label>
+            <input asp-for="ChucVu" class="form-control" placeholder="Ví dụ: Quản lý tòa nhà, Kế toán..." />
+        </div>
+
+        <div class="form-group">
+            <div style="margin-bottom: 25px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #475569;">Trạng Thái</label>
+            <select asp-for="TrangThai" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none;">
+                <option value="Đang làm">Đang làm</option>
+                <option value="Nghỉ việc">Nghỉ việc</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Tài khoản hệ thống</label>
+            <select asp-for="MaTaiKhoan" asp-items="ViewBag.MaTaiKhoan" class="form-control">
+                <option value="">-- Trống --</option>
+            </select>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-save">Lưu thay đổi</button>
+            <a asp-action="Index" class="btn btn-cancel">Quay lại</a>
+        </div>
+    </form>
+</div>

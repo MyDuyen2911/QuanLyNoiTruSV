@@ -1,0 +1,48 @@
+﻿@model QL_NOITRU_DAKHU.Models.ToaNha
+
+<h2 class="page-title" style="color: #e74c3c;">Xác nhận xóa Tòa Nhà</h2>
+
+<div class="form-card">
+    <div class="form-title" style="background: #fff5f5; color: #e74c3c; border: 1px solid #feb2b2; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+        ⚠️ <strong>Cảnh báo:</strong> Hành động này sẽ xóa vĩnh viễn tòa nhà <b>@Model.TenToa</b> và có thể ảnh hưởng đến các dữ liệu liên quan (như Phòng, Hợp đồng) thuộc tòa nhà này.
+    </div>
+
+    <div class="detail-group" style="margin-bottom: 20px;">
+        <div class="detail-item">
+            <span>Tên Tòa Nhà:</span> <strong>@Model.TenToa</strong>
+        </div>
+        <div class="detail-item">
+            <span>Thuộc Khu:</span> <strong>@Model.MaKhuNavigation?.TenKhu</strong>
+        </div>
+        <div class="detail-item">
+            <span>Trạng thái hiện tại:</span>
+            <span class="status-badge @(Model.TrangThai == "Hoạt động" ? "active" : "locked")">
+                @Model.TrangThai
+            </span>
+        </div>
+    </div>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="MaToa" />
+        <div class="form-actions">
+            <button type="submit" class="btn btn-delete" style="padding: 12px 30px;">Xác nhận xóa vĩnh viễn</button>
+            <a asp-action="Index" class="btn btn-cancel">Hủy bỏ & Quay lại</a>
+        </div>
+    </form>
+</div>
+
+<style>
+    .detail-group {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 15px;
+        background: #f8fafc;
+        padding: 20px;
+        border-radius: 8px;
+    }
+
+    .detail-item span {
+        color: #64748b;
+        margin-right: 10px;
+    }
+</style>

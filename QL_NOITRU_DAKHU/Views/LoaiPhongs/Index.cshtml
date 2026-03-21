@@ -1,0 +1,48 @@
+﻿@model IEnumerable<QL_NOITRU_DAKHU.Models.LoaiPhong>
+
+<h2 class="page-title">Cấu hình Loại Phòng</h2>
+
+<div class="header-actions">
+    <form method="get" class="search-box" style="display: flex; gap: 10px;">
+        <input type="text" name="search" value="@ViewBag.CurrentSearch"
+               placeholder="🔍 Tìm kiếm nhanh..." class="form-control"
+               style="width: 250px; margin-bottom: 0;" />
+        <button type="submit" class="btn btn-edit">Tìm</button>
+    </form>
+
+    @if (!User.IsInRole("SinhVien"))
+    {
+        <a asp-action="Create" class="btn btn-save">+ Thêm Mới</a>
+    }
+</div>
+
+<div class="table-container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Tên Loại</th>
+                <th>Sức Chứa (Người)</th>
+                <th>Giá Phòng (VND)</th>
+                <th>Thao Tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><b>@item.TenLoai</b></td>
+                    <td>@item.SoNguoiToiDa</td>
+                    <td>@item.GiaPhong?.ToString("N0")</td>
+                    <td class="action-btns">
+                        <a asp-action="Details" asp-route-id="@item.MaLoaiPhong" class="btn btn-save">Chi tiết</a>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.MaLoaiPhong" class="btn btn-edit">Sửa</a>
+                            <a asp-action="Delete" asp-route-id="@item.MaLoaiPhong" class="btn btn-delete">Xóa</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

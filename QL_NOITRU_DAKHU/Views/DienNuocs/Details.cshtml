@@ -1,0 +1,55 @@
+﻿@model QL_NOITRU_DAKHU.Models.DienNuoc
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "DienNuocsController.cs";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>DienNuoc</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Thang)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Thang)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Nam)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Nam)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ChiSoDau)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ChiSoDau)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ChiSoCuoi)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ChiSoCuoi)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DonGia)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DonGia)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MaPhongNavigation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MaPhongNavigation.MaPhong)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.MaDienNuoc">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

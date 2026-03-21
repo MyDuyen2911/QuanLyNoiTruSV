@@ -1,0 +1,66 @@
+﻿@model IEnumerable<QL_NOITRU_DAKHU.Models.SinhVien>
+
+<h2 class="page-title">Danh sách sinh viên</h2>
+
+<div class="header-actions">
+    <form method="get" class="search-box">
+        <input type="text" name="search" value="@ViewBag.CurrentSearch"
+               placeholder="🔍 Tìm sinh viên..." class="form-control" />
+        <button type="submit" class="btn btn-edit">Tìm</button>
+    </form>
+
+    <a asp-action="Create" class="btn btn-save">+ Thêm sinh viên</a>
+</div>
+
+<div class="table-container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>MSSV</th>
+                <th>Họ tên</th>
+                <th>Ngày sinh</th>
+                <th>Giới tính</th>
+                <th>CCCD</th>
+                <th>Điện thoại</th>
+                <th>Địa chỉ</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Mssv</td>
+                    <td>@item.HoTen</td>
+                    <td>@item.NgaySinh?.ToString("dd/MM/yyyy")</td>
+                    <td>@item.GioiTinh</td>
+                    <td>@item.Cccd</td>
+                    <td>@item.DienThoai</td>
+                    <td>@item.DiaChi</td>
+                    <td class="action-btns">
+                        <a asp-action="Edit" asp-route-id="@item.MaSv" class="btn btn-edit">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.MaSv" class="btn btn-save">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.MaSv" class="btn btn-delete">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var toast = document.getElementById("toast-success");
+            if (toast) {
+                // Sau 3 giây (3000ms) thì thêm class 'hide' để trượt vào trong
+                setTimeout(function () {
+                    toast.classList.add("hide");
+
+                    // Đợi thêm 0.5s cho animation chạy xong rồi xóa hẳn khỏi DOM
+                    setTimeout(function() {
+                        toast.remove();
+                    }, 500);
+                }, 3000);
+            }
+        });
+    </script>
+</div>

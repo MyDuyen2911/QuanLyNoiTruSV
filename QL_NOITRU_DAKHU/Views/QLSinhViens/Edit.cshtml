@@ -1,0 +1,61 @@
+﻿@model QL_NOITRU_DAKHU.Models.SinhVien
+
+<div class="form-card">
+    <div class="form-title">Cập nhật sinh viên</div>
+
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="MaSv" />
+
+        <div class="form-group">
+            <label>MSSV</label>
+            <input asp-for="Mssv" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label>Họ tên</label>
+            <input asp-for="HoTen" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label>Ngày sinh</label>
+            <input asp-for="NgaySinh" type="date"
+                   value="@Model.NgaySinh?.ToString("yyyy-MM-dd")"
+                   class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label>Giới tính</label>
+            <select asp-for="GioiTinh" class="form-control">
+                <option value="Nam" selected="@(Model.GioiTinh=="Nam")">Nam</option>
+                <option value="Nữ" selected="@(Model.GioiTinh=="Nữ")">Nữ</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>CCCD</label>
+            <input asp-for="Cccd" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label>Điện thoại</label>
+            <input asp-for="DienThoai" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label>Địa chỉ</label>
+            <input asp-for="DiaChi" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label>Tài khoản</label>
+            <select asp-for="MaTaiKhoan" asp-items="ViewBag.MaTaiKhoan" class="form-control">
+                <option value="">-- Chọn tài khoản --</option>
+            </select>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-save">Cập nhật</button>
+            <a asp-action="Index" class="btn btn-cancel">Quay lại</a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>SINH VIÊN</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="logo">🎓 TRANG SINH VIÊN</div>
+        <style>
+            .header-user-block {
+                display: flex;
+                align-items: center;
+                gap: 15px; /* Khoảng cách giữa chữ và nút */
+            }
+
+            .user-profile-info {
+                font-size: 14px;
+                color: #2c3e50;
+                margin-top: 2px; /* Chỉnh nhẹ cho chữ ngang hàng với nút */
+            }
+
+            .btn-thoat {
+                background-color: #ef4444;
+                color: white !important;
+                padding: 7px 15px;
+                border-radius: 6px;
+                text-decoration: none;
+                font-size: 13px;
+                font-weight: 600;
+                box-shadow: 0 2px 4px rgba(239, 68, 68, 0.2);
+                transition: all 0.2s ease;
+                display: inline-block;
+            }
+
+                .btn-thoat:hover {
+                    background-color: #dc2626;
+                    transform: translateY(-2px);
+                }
+        </style>
+
+        <div class="header-user-block">
+            <div class="user-profile-info">
+                <span>Xin chào, <b>@User.Identity.Name</b></span>
+            </div>
+
+            <a asp-controller="Account" asp-action="Logout" class="btn-thoat">
+                Đăng xuất
+            </a>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <div class="main-content">
+            @RenderBody()
+        </div>
+
+    </div>
+    <script>
+        document.querySelectorAll(".toggle-menu").forEach(menu => {
+            menu.addEventListener("click", function () {
+                this.classList.toggle("active")
+                this.nextElementSibling.classList.toggle("show")
+            })
+        })
+    </script>
+</body>
+</html>a

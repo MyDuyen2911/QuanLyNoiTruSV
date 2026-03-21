@@ -1,0 +1,22 @@
+﻿@model QL_NOITRU_DAKHU.Models.TaiKhoan
+
+<div style="background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); padding: 30px; max-width: 600px; margin: 0 auto; border-top: 5px solid #ef4444;">
+    <h3 style="margin-top: 0; color: #dc2626; margin-bottom: 10px;">⚠️ Cảnh Báo Xóa Tài Khoản</h3>
+    <p style="color: #475569; margin-bottom: 20px;">Hành động này sẽ thu hồi vĩnh viễn quyền truy cập của tài khoản <b style="font-size: 18px; color: #0369a1;">@Model.Username</b>.</p>
+
+    @if (TempData["error"] != null)
+    {
+            <div style="background: #fee2e2; color: #991b1b; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 5px solid #dc2626;">
+                ❌ <strong>Lỗi:</strong> @TempData["error"]
+            </div>
+    }
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="MaTaiKhoan" />
+
+        <div style="display: flex; gap: 15px;">
+            <button type="submit" style="background: #ef4444; color: white; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; font-weight: bold;">Đồng ý Xóa vĩnh viễn</button>
+            <a asp-action="Index" style="background: #f1f5f9; color: #475569; text-decoration: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; text-align: center;">Hủy bỏ</a>
+        </div>
+    </form>
+</div>

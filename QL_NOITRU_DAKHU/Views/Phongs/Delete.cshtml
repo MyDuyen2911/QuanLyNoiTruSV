@@ -1,0 +1,17 @@
+﻿@model QL_NOITRU_DAKHU.Models.Phong
+
+<div class="form-card">
+    <div class="form-title" style="color: #e74c3c;">Xác nhận xóa Phòng</div>
+    <div style="padding: 20px; background: #fff5f5; border-radius: 8px; margin-bottom: 20px;">
+        Cảnh báo: Bạn đang yêu cầu xóa phòng <strong>@Model.TenPhong</strong>.
+        Nếu phòng này đang có sinh viên ở hoặc có hóa đơn, việc xóa có thể gây lỗi dữ liệu!
+    </div>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="MaPhong" />
+        <div class="form-actions">
+            <button type="submit" class="btn btn-delete">Xác nhận xóa vĩnh viễn</button>
+            <a asp-action="Index" class="btn btn-cancel">Quay lại</a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,50 @@
+﻿@model QL_NOITRU_DAKHU.Models.SinhVien
+
+<div class="form-card">
+    <div class="form-title">Chi tiết sinh viên</div>
+
+    <div class="form-group">
+        <label>MSSV:</label>
+        <div class="form-control" style="background-color: #f8fafc;">@Model.Mssv</div>
+    </div>
+
+    <div class="form-group">
+        <label>Họ tên:</label>
+        <div class="form-control" style="background-color: #f8fafc;">@Model.HoTen</div>
+    </div>
+
+    <div class="form-group">
+        <label>Ngày sinh:</label>
+        <div class="form-control" style="background-color: #f8fafc;">
+            @Model.NgaySinh?.ToString("dd/MM/yyyy")
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Giới tính:</label>
+        <div class="form-control" style="background-color: #f8fafc;">@Model.GioiTinh</div>
+    </div>
+
+    <div class="form-group">
+        <label>CCCD:</label>
+        <div class="form-control" style="background-color: #f8fafc;">@Model.Cccd</div>
+    </div>
+
+    <div class="form-group">
+        <label>Điện thoại:</label>
+        <div class="form-control" style="background-color: #f8fafc;">@Model.DienThoai</div>
+    </div>
+
+    <div class="form-group">
+        <label>Địa chỉ:</label>
+        <div class="form-control" style="background-color: #f8fafc;">@Model.DiaChi</div>
+    </div>
+
+    <div class="form-actions">
+        @if (User.IsInRole("Admin") || User.IsInRole("NhanVien"))
+        {
+            <a asp-action="Edit" asp-route-id="@Model.MaSv" class="btn btn-edit">Chỉnh sửa</a>
+            <a asp-action="Index" class="btn btn-cancel">Quay lại danh sách</a>
+        }
+    </div>
+</div>

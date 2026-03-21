@@ -1,0 +1,86 @@
+﻿@model IEnumerable<QL_NOITRU_DAKHU.Models.BienBanViPham>
+
+@{
+    ViewData["Title"] = "Quản lý Kỷ luật";
+}
+
+<div style="margin-bottom: 25px;">
+    <h2 style="margin: 0; color: #1e293b; font-size: 26px; font-weight: bold;">🚨 Danh sách Kỷ luật & Vi phạm</h2>
+    <p style="color: #64748b; margin-top: 5px;">Theo dõi các biên bản vi phạm nội quy của sinh viên.</p>
+</div>
+
+@if (TempData["success"] != null)
+{
+        <div style="background: #d1fae5; color: #065f46; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 5px solid #10b981;">
+            ✅ <strong>Thành công!</strong> @TempData["success"]
+        </div>
+}
+
+<div style="background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); padding: 25px;">
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px;">
+        <form method="get" style="display: flex; gap: 10px; margin: 0;">
+            <input type="text" name="search" value="@ViewBag.CurrentSearch" placeholder="🔍 Tìm SV hoặc lỗi vi phạm..." style="padding: 10px 15px; border: 1px solid #cbd5e1; border-radius: 8px; width: 300px; outline: none;" />
+            <button type="submit" style="background: #3b82f6; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600;">Tìm kiếm</button>
+            @if (!string.IsNullOrEmpty(ViewBag.CurrentSearch))
+            {
+                    <a asp-action="Index" style="background: #f1f5f9; color: #475569; text-decoration: none; padding: 10px 15px; border-radius: 8px; font-weight: 600;">Xóa lọc</a>
+            }
+        </form>
+
+        @if (!User.IsInRole("SinhVien"))
+        {
+                <a asp-action="Create" style="background: #ef4444; color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 600;">➕ Lập Biên Bản</a>
+        }
+    </div>
+
+    <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+            <thead>
+                <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0;">
+                    <th style="padding: 15px; color: #475569;">Số BB</th>
+                    <th style="padding: 15px; color: #475569;">Ngày Lập</th>
+                    <th style="padding: 15px; color: #475569;">Sinh Viên</th>
+                    <th style="padding: 15px; color: #475569;">Lỗi Vi Phạm</th>
+                    <th style="padding: 15px; color: #475569;">Mức Phạt</th>
+                    <th style="padding: 15px; color: #475569;">Thao Tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                        <tr><td colspan="6" style="text-align: center; padding: 30px; color: #94a3b8;">Không có dữ liệu biên bản.</td></tr>
+                }
+                @foreach (var item in Model)
+                {
+                        <tr style="border-bottom: 1px solid #f1f5f9;">
+                            <td style="padding: 15px; font-weight: bold; color: #3b82f6;">BB-@item.MaBienBan</td>
+                            <td style="padding: 15px;">@item.NgayLap?.ToString("dd/MM/yyyy")</td>
+                            <td style="padding: 15px; font-weight: 500;">@item.MaSvNavigation?.HoTen</td>
+                            <td style="padding: 15px;">
+                                <span style="background: #fef3c7; color: #b45309; padding: 4px 10px; border-radius: 6px; font-weight: 600; font-size: 13px;">
+                                @item.MaViPhamNavigation?.TenViPham
+                                </span>
+                            </td>
+                            <td style="padding: 15px;">
+                                <span style="color: #dc2626; font-weight: bold;">
+                                @(item.MaViPhamNavigation?.MucPhat?.ToString("N0") ?? "0") đ
+                                </span>
+                            </td>
+                            <td style="padding: 15px; display: flex; gap: 8px;">
+                                <a asp-action="Details" asp-route-id="@item.MaBienBan" style="background: #f1f5f9; color: #475569; text-decoration: none; padding: 6px 12px; border-radius: 6px; font-size: 13px; font-weight: 600;">Xem</a>
+                            @if (!User.IsInRole("SinhVien"))
+                            {
+                                        <a asp-action="Edit" asp-route-id="@item.MaBienBan" style="background: #fffbeb; color: #d97706; text-decoration: none; padding: 6px 12px; border-radius: 6px; font-size: 13px; font-weight: 600;">Sửa</a>
+                            }
+                            @if (User.IsInRole("Admin"))
+                            {
+                                        <a asp-action="Delete" asp-route-id="@item.MaBienBan" style="background: #fee2e2; color: #dc2626; text-decoration: none; padding: 6px 12px; border-radius: 6px; font-size: 13px; font-weight: 600;">Xóa</a>
+                            }
+                            </td>
+                        </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
